@@ -22,9 +22,6 @@ class RolesSeeder extends Seeder
                 'name' => 'Admin'
             ],
             [
-                'name' => 'Account-Owner'
-            ],
-            [
                 'name' => 'Teacher'
             ],
         ]);

@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Create Teacher</h1>
+                    <h1>Edit Question</h1>
                 </div>
             </div>
         </div>
@@ -17,19 +17,17 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'teachers.store']) !!}
+            {!! Form::model($question, ['route' => ['questions.update', $question->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-
                 <div class="row">
-                    @include('teachers.fields')
+                    @include('questions.fields')
                 </div>
-
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('teachers.index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('questions.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}
