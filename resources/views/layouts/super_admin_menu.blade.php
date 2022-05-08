@@ -19,7 +19,6 @@
     </a>
 </li>
 
-
 <li class="nav-item">
     <a href="{{ route('schools.index') }}"
        class="nav-link {{ Request::is('schools*') ? 'active' : '' }}">
@@ -38,13 +37,6 @@
 <li class="nav-item">
     <a href="{{ route('selected_Questions.index') }}"
        class="nav-link {{ Request::is('selected_questions*') ? 'active' : '' }}">
-        <p>Selected Questions</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('teacher_groups.index') }}"
-       class="nav-link {{ Request::is('teacher_groups*') ? 'active' : '' }}">
         <p>Selected Questions</p>
     </a>
 </li>

@@ -85,7 +85,7 @@
     </nav>
 
     <!-- Left side column. contains the logo and sidebar -->
-@include('layouts.sidebar')
+@include('layouts.teacher_sidebar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

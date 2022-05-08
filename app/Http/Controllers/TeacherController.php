@@ -231,4 +231,6 @@ class TeacherController extends AppBaseController
 
         return redirect(route('teachers.index'));
     }
+
+    
 }

@@ -5,13 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Teachers</h1>
-                </div>
-                <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('teachers.create') }}">
-                        Add New
-                    </a>
+                    <h1>Selected Questions</h1>
                 </div>
             </div>
         </div>
@@ -25,7 +19,7 @@
 
         <div class="card">
             <div class="card-body p-0">
-                @include('teachers.table')
+                @include('selected_questions.table')
 
                 <div class="card-footer clearfix">
                     <div class="float-right">

@@ -9,6 +9,9 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\QuestionTypes;
+use App\Jobs\SelectQuestionsJobs;
+use App\Models\SelectedQuestion;
 
 class QuestionController extends AppBaseController
 {
@@ -42,7 +45,8 @@ class QuestionController extends AppBaseController
      */
     public function create()
     {
-        return view('questions.create');
+        $question_types = QuestionTypes::pluck('name', 'id')->prepend('Select a Type', null);
+        return view('questions.create')->with('question_types', $question_types);
     }
 
     /**
@@ -93,14 +97,14 @@ class QuestionController extends AppBaseController
     public function edit($id)
     {
         $question = $this->questionRepository->find($id);
-
+        $question_types = QuestionTypes::pluck('name', 'id')->prepend('Select a Type', null);
         if (empty($question)) {
             Flash::error('Question not found');
 
             return redirect(route('questions.index'));
         }
 
-        return view('questions.edit')->with('question', $question);
+        return view('questions.edit')->with('question', $question)->with('question_types',$question_types);
     }
 
     /**
@@ -152,5 +156,43 @@ class QuestionController extends AppBaseController
         Flash::success('Question deleted successfully.');
 
         return redirect(route('questions.index'));
+    }
+
+    public function selectQuestions(Request $request)
+    {
+        foreach($request->ids as $id){
+            $selectQuestion = (new SelectQuestionsJobs($id));
+            dispatch($selectQuestion);
+        }
+        Flash::success('Question selected successfully.');
+
+        return redirect(route('questions.index'));
+    }
+
+    public function selectedQuestions(Request $request)
+    {
+        $selected_questions = SelectedQuestion::get();
+        return view('selected_Questions.index')
+            ->with('selected_questions', $selected_questions);
+    }
+
+    public function deleteSelectedQuestions(Request $request)
+    {
+        foreach($request->ids as $id){
+            $question = SelectedQuestion::where('id',$id)->first();
+            $question->delete();
+        }
+        Flash::success('Selected Question selected successfully.');
+
+        return redirect(route('selected_Questions.index'));
+    }
+
+    public function deleteSelectedQuestionsSingle($id)
+    {
+        $question = SelectedQuestion::where('id',$id)->first();
+        $question->delete();
+        Flash::success('Selected Question selected successfully.');
+
+        return redirect(route('selected_Questions.index'));
     }
 }
