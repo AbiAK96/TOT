@@ -1,11 +1,17 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="{{ url('/home') }}" class="brand-link">
-        <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
+    {{-- <a href="{{ url('/home') }}" class="brand-link">
+        <img src="{{ asset('img/logo_dash.png') }}"
              alt="{{ config('app.name') }} Logo"
              class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
-    </a>
-    <div class="sidebar">
+    </a> --}}
+    <div class="text-center" style="background-color: white">
+        <a href="{{ url('/home') }}">
+            <img src="{{ asset('img/logo_dash.png') }}" 
+            class="pb-2 pt-2" alt="User Image" width="150px">    
+        </a>
+    </div>
+    <div class="sidebar" style="background-color: white">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @include('layouts.menu')

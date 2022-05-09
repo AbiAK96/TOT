@@ -4,8 +4,8 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1>Create Question</h1>
+                <div class="col-sm-6">
+                    <h1>Teacher Groups</h1>
                 </div>
             </div>
         </div>
@@ -13,27 +13,64 @@
 
     <div class="content px-3">
 
-        @include('adminlte-templates::common.errors')
+        @include('flash::message')
+
+        <div class="clearfix"></div>
 
         <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <form method="post" action="{{url('teacher_groups/store')}}">
+                        {{ csrf_field() }}
+                        <br>
+                        <a style="padding-left: 30px;"></a><input class="btn btn-success" type="submit" name="submit" value="Create Groups"/><br><br>
 
-            {!! Form::open(['route' => 'questions.store']) !!}
+                        <div style="padding-left: 30px;" class="form-group col-sm-6">
+                            {!! Form::label('group_name', 'Group Name:') !!}
+                            {!! Form::text('group_name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+                        </div>
+                        <br>
+                        <table class="table" id="teacher_groups-table">
+                            <thead>
+                                <tr>        
+                                    <th>Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                        <?php $index = 1; ?>
+                                    @foreach($teachers as $teacher)
+                                    <tr>
+                                        <td>{{ $teacher->id }}</td>
+                                        <td>{{ $teacher->first_name }}</td>
+                                        <td>{{ $teacher->last_name }}</td>
+                                        <td class="text-center"><input name='ids[]' type="checkbox" id="checkItem" 
+                                            value="<?php echo $teacher->id; ?>"></td>
+                                           </tr>
+                                        <?php $index++ ?> 
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <br>
+                            </form>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                        <script language="javascript">
+                            $("#checkAll").click(function () {
+                                $('input:checkbox').not(this).prop('checked', this.checked);
+                            });
+                        </script>
 
-            <div class="card-body">
-
-                <div class="row">
-                    @include('questions.fields')
+                <div class="card-footer clearfix">
+                    <div class="float-right">
+                        
+                    </div>
                 </div>
-
             </div>
-
-            <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('questions.index') }}" class="btn btn-default">Cancel</a>
-            </div>
-
-            {!! Form::close() !!}
 
         </div>
     </div>
+
 @endsection
+
