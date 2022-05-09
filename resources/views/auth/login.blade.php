@@ -43,6 +43,12 @@
     <!-- /.login-box-body -->
     <div class="card">
         <div class="card-body login-card-body">
+            <div class="login-logo">
+                <a href="{{ url('/home') }}">
+                    <img src="{{ asset('img/logo.png') }}" 
+                    class="pb-2" alt="Logo" width="150px">    
+                </a>
+            </div>
             <p class="login-box-msg">Sign in to start your session</p>
             <span class="error invalid-feedback">{{ $message }}</span>
             <form method="post" action="{{ url('auth/login') }}">
