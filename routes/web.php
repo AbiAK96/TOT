@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgotPasswordAPIController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TeacherGroupController;
+use App\Http\Controllers\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,10 @@ use App\Http\Controllers\TeacherGroupController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware(['auth:sanctum'])->group(function(){
-});
+// Route::middleware(['auth:sanctum'])->group(function(){
+// });
 Auth::routes();
-
+Route::middleware(['auth:sanctum'])->group(function(){
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('teachers', App\Http\Controllers\TeacherController::class);
 Route::resource('questionTypes', App\Http\Controllers\QuestionTypesController::class);
@@ -33,8 +34,6 @@ Route::resource('schools', App\Http\Controllers\SchoolController::class);
 Route::resource('teacherTypes', App\Http\Controllers\TeacherTypesController::class);
 Route::resource('users', App\Http\Controllers\UserController::class);
 
-Route::get('login', [LoginController::class, 'loginview'])->name('auth.login');
-Route::post('auth/login', [LoginController::class, 'login'])->name('auth/login');
 Route::post('send/forgot-password', [ForgotPasswordAPIController::class,'forgotPassword']);
 Route::get('auth/email-verification', [EmailVerificationController::class,'emailVerifyProcess']);
 
@@ -47,3 +46,8 @@ Route::delete('selectedquestionsdelete/{id}', [QuestionController::class,'delete
 Route::get('teacher_groups', [TeacherGroupController::class,'getTeacherGroups'])->name('teacher_groups.index');
 Route::get('teacher_groups/create', [TeacherGroupController::class,'create'])->name('teacher_groups.create');
 Route::post('teacher_groups/store', [TeacherGroupController::class,'storeTeacherGroups']);
+
+Route::get('admin/exams', [ExamController::class,'getExams'])->name('admin_exams.index');
+Route::get('admin/exams/create', [ExamController::class,'createExams'])->name('admin_exams.create');
+Route::post('admin/exams/create', [ExamController::class,'storeExams'])->name('admin_exams.store');
+});

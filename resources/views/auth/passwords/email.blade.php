@@ -40,6 +40,12 @@
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
+            <div class="login-logo">
+                <a href="{{ url('/home') }}">
+                    <img src="{{ asset('img/logo.png') }}"  
+                    class="pb-2" alt="Logo" width="150px">    
+                </a>
+            </div>
             <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
 
             @if (session('status'))
@@ -76,9 +82,6 @@
 
             <p class="mt-3 mb-1">
                 <a href="{{ route("login") }}">Login</a>
-            </p>
-            <p class="mb-0">
-                <a href="{{ route("register") }}" class="text-center">Register a new membership</a>
             </p>
         </div>
         <!-- /.login-card-body -->

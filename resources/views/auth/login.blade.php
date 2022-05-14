@@ -45,15 +45,13 @@
         <div class="card-body login-card-body">
             <div class="login-logo">
                 <a href="{{ url('/home') }}">
-                    <img src="{{ asset('img/logo.png') }}" 
+                    <img src="{{ asset('img/logo.png') }}"  
                     class="pb-2" alt="Logo" width="150px">    
                 </a>
             </div>
             <p class="login-box-msg">Sign in to start your session</p>
-            <span class="error invalid-feedback">{{ $message }}</span>
-            <form method="post" action="{{ url('auth/login') }}">
+            <form method="post" action="{{ url('/login') }}">
                 @csrf
-                <a style="color: red"> {{ $message }} </a>
                 <div class="input-group mb-3">
                     <input type="email"
                            name="email"
@@ -102,45 +100,12 @@
                 <div class="job-filter-result">
                     <div class="body">
                         <div class="more" style="display: contents;">
-                            <div class="buttons" data-toggle="modal" data-target="#exampleModalCenter">
-                            <a class="button">
-                                I forgot my password 
-                            </a>
-                            </div>
                         </div>
                     </div>
                 </div>
-               
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                        <form method="POST" action="{{ url('send/forgot-password') }}">
-                        {{ csrf_field() }}
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Enter Your Email</h5>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="email"
-                                       name="email"
-                                       value="{{ old('email') }}"
-                                       placeholder="Email"
-                                       class="form-control @error('email') is-invalid @enderror">
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><span class="fas fa-envelope"></span></div>
-                                </div>
-                                @error('email')
-                                <span class="error invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Send Email</button>
-                            </div>      
-                        </form>
-                        </div>
-                    </div>
-                </div>
+                <p class="mb-1">
+                    <a href="{{ route('password.request') }}">I forgot my password</a>
+                </p>
             </div>
         </div>                    
             </p>
