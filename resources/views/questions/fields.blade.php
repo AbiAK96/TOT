@@ -37,5 +37,5 @@
 <!-- Correct Answer Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('correct_answer', 'Correct Answer:') !!}
-    {!! Form::select('correct_answer', $question_types,null,['class' => 'form-control']) !!}
+    {!! Form::number('correct_answer', null,['class' => 'form-control']) !!}
 </div>

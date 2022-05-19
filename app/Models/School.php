@@ -71,4 +71,22 @@ class School extends Model
     {
         return $this->hasMany(\App\Models\Teacher::class, 'school_id');
     }
-}
+
+    public function teachersEmailValidation($array) 
+    {
+        $teachers_details = $array[0];
+
+        $teachers = [];
+        foreach($teachers_details as $teacher_detail){
+            $school_domain = School::where('id',auth()->user()->school_id)->first()->school_domain;
+            $email = explode('@',$teacher_detail[2])[1];
+            if($email != $school_domain){
+                array_push($teachers,$teacher_detail[2]);
+            }
+        }
+
+        if(count($teachers) != 0){
+            return $teachers;
+        }
+    }
+ }
