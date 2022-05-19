@@ -9,6 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use App\Jobs\SaveTeacherCSVJobs;
+use App\Jobs\UpdateTeacherCSVJobs;
+
 /**
  * Class User
  * @package App\Models
@@ -141,5 +144,52 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+
+    //     self::creating(function($model){
+    //         $teacher = User::where('email',$model->email)->first();
+    //         if ($teacher == null) {
+    //             //$model->save();
+    //             print_r('Null');die();
+    //             // $saveTeacher = (new SaveTeacherCSVJobs($model));
+    //             // dispatch($saveTeacher);
+    //         }
+
+    //         print_r("NotNull");die();
+    //     });
+    // }
+
+    public function domainValidation($request)
+    {
+        $email_domain = explode('@',$request['email'])[1];
+        $school_domain = School::where('id',$request->school_id)->first()->school_domain;
+
+        if($email_domain == $school_domain){
+            return true;
+        }
+        return false;
+    }
+
+    public  function saveCSV($array,$school_id)
+    {
+        $teachers = $array[0];
+
+        foreach($teachers as $teacher) {
+            $existing_teacher = User::where('email',$teacher[2])->first();
+            if($existing_teacher == null){
+                $jobs = new SaveTeacherCSVJobs($teacher,$school_id);
+                dispatch($jobs);
+            }else{
+
+                // $jobs = new UpdateTeacherCSVJobs($teacher);
+                // dispatch($jobs);
+            }
+
+        }
+
     }
 }

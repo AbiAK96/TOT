@@ -47,6 +47,9 @@ class SelectedQuestion extends Model
         'correct_answer'
     ];
 
+    protected $hidden = [
+        'correct_answer',
+    ];
     /**
      * The attributes that should be casted to native types.
      *

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDraftExamsTable extends Migration
+class CreateResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateDraftExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('draft_exams', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('teacher_id');
-            $table->string('start_time');
-            $table->string('end_time');
-            $table->string('name');
-
+            $table->string('result');
+            $table->string('date');
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 
@@ -32,6 +31,6 @@ class CreateDraftExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('draft_exams');
+        Schema::dropIfExists('results');
     }
 }

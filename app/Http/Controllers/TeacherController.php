@@ -12,6 +12,8 @@ use Response;
 use App\Models\School;
 use App\Models\Role;
 use App\Models\TeacherTypes;
+use App\Models\SelectedQuestion;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends AppBaseController
 {
@@ -73,66 +75,6 @@ class TeacherController extends AppBaseController
 
         return redirect(route('teachers.index'));
 
-        // $email = User::getExistingEmail($request['email']);
-        // $email_domain = Account::domainValidation($request);
-        // if(null != $email){
-        //     $message = 'Email is already taken';
-        //     return $this->sendResponse(null, null, $message);
-        // }else{
-        //     if($email_domain == true){
-        //         DB::beginTransaction();
-        //         try {
-        //             $account = new Account;
-        //             $account->company_name      = $request['company_name'];
-        //             $account->company_address   = $request['company_address'];
-        //             $account->company_domain    = $request['company_domain'];
-        //             $account->profile_image     = $request['profile_image']; 
-        //             $account->save();
-
-        //             // add last inserted account_id in user table.
-        //             $user = new User;
-        //             $user->account_id       = $account->id; // last inserted id
-        //             $user->first_name       = $request['first_name'];
-        //             $user->last_name        = $request['last_name'];
-        //             $user->email            = $request['email'];
-        //             $user->mobile_number    = $request['mobile_number'];
-        //             $user->city             = $request['city'];
-        //             $user->zip_code         = $request['zip_code'];
-        //             $user->password         = Hash::make($request['password']);
-        //             $user->username         = $user->email;
-        //             $user->role_id          = 3;
-        //             $user->save();
-
-        //             DB::commit();
-        //             $stripe = [];
-        //             $stripe['email']     = $user->email;
-        //             $stripe['name']      = $account->company_name;
-        //             $stripe['phone']     = $user->mobile_number;
-        //             $stripe['address']   = array("city" => $user->city,
-        //                                         "postal_code" => $user->zip_code
-        //             );
-        //             $stripeCustomer = $account->createAsStripeCustomer($stripe);
-
-        //             if(null != $user){
-        //                 $email_verification = new EmailVerificationAPIController;
-        //                 $email_verification->processData($request->email,$request->first_name);
-        //             }
-
-        //         } catch (\Exception $e) {
-        //             DB::rollback();
-        //             $message = 'User registration failed ';
-        //             return $this->sendResponse(null, null, $message . $e->getMessage());
-        //         }
-        //     }else{
-        //         return $this->sendResponse(null, null,'Please enter your own company domain.');
-        //     }
-
-        //         $result['account'] = $account->toArray();
-        //         $result['user'] = $user->toArray();
-
-        //         $message = 'User registration successfully, Please check your email inbox for instructions to verify your email';
-        //         return $this->sendResponse($result, $message, null);
-        // }
     }
 
     /**
@@ -232,5 +174,51 @@ class TeacherController extends AppBaseController
         return redirect(route('teachers.index'));
     }
 
-    
+    public function getExams(Request $request)
+    {
+        $teacher_id = auth()->user()->id;
+        $exams = DB::table('draft_exams')
+                    ->select('draft_exams.*')
+                    ->where('teacher_id', $teacher_id)
+                    ->get();
+        
+            return view('teacher_exams.index')
+            ->with('exams', $exams);
+    }
+
+    public function getExamsQuestions(Request $request)
+    {
+        $questions = SelectedQuestion::get();
+            return view('teacher_exams.start')
+            ->with('questions', $questions);
+    }
+
+    public function storeResults(Request $request)
+    {
+        print_r($request->all());die();
+        $teacher_id = auth()->user()->id;
+        $questions_count = SelectedQuestion::count();
+        //$questions_count = 5;
+        //$count = 0;
+        if ($request->ids != null && count($request->ids) == $questions_count) {
+            $questions = SelectedQuestion::get();
+            $count = 0;
+            foreach ($questions as $question) {
+                print_r($question->correct_answer);die();
+                foreach ($request->ids as $id) {
+                    //print_r($id);die();
+                    if ($id == $question->correct_answer) {
+                        $count = $count + 1;
+                    }
+                }
+            }
+            print_r($count);die();
+        }
+        Flash::error('Please Select All the answers');
+
+        $questions = SelectedQuestion::get();
+        return view('teacher_exams.start')
+        ->with('questions', $questions);
+
+    }
 }

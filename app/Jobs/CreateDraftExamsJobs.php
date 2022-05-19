@@ -46,6 +46,7 @@ class CreateDraftExamsJobs implements ShouldQueue
             'teacher_id' => $this->teacher_id,
             'start_time' => $this->model->start_time,
             'end_time' => $this->model->end_time,
+            'name' => $this->model->name,
         ]);    
     }
 }
