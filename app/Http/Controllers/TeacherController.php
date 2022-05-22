@@ -13,6 +13,7 @@ use App\Models\School;
 use App\Models\Role;
 use App\Models\TeacherTypes;
 use App\Models\SelectedQuestion;
+use App\Models\Question;
 use Illuminate\Support\Facades\DB;
 
 class TeacherController extends AppBaseController
@@ -188,7 +189,7 @@ class TeacherController extends AppBaseController
 
     public function getExamsQuestions(Request $request)
     {
-        $questions = SelectedQuestion::get();
+        $questions = Question::where('status',true)->get();
             return view('teacher_exams.start')
             ->with('questions', $questions);
     }

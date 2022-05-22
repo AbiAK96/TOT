@@ -28,7 +28,7 @@
                     <br>
                     <div style="padding-left: 30px;" class="form-group col-sm-6">
                         {!! Form::label('description', 'Description:') !!}
-                        {!! Form::text('description', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+                        {!! Form::textarea('description', null, ['class' => 'form-control','maxlength' => 5000,'maxlength' => 5000]) !!}
                     </div>
                             <br>
 

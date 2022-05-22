@@ -36,10 +36,18 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->all();
-
+        $user = auth()->user();
+        if ($user->role_id == 1) {
+            $users = User::where('id','!=',$user->id)->get();
+            
         return view('users.index')
-            ->with('users', $users);
+        ->with('users', $users);
+        } else {
+            $users = User::where('school_id',$user->school_id)->where('id','!=',$user->id)->get();
+            
+        return view('users.index')
+        ->with('users', $users);
+        }
     }
 
     /**
@@ -49,10 +57,18 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        $message = null;
-        $schools = School::pluck('school_name', 'id')->prepend('Select a School', null);
-        $roles = Role::pluck('name', 'id')->prepend('Select a Role', null);
-        return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+        if (auth()->user()->role_id == 1) {
+            $message = null;
+            $schools = School::where('id','!=',1)->pluck('school_name', 'id')->prepend('Select a School', null);
+            $roles = Role::where('id','!=',1)->pluck('name', 'id')->prepend('Select a Role', null);
+            return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+        } elseif (auth()->user()->role_id == 2) {
+            $user = auth()->user();
+            $message = null;
+            $schools = School::where('id',$user->school_id)->pluck('school_name', 'id');
+            $roles = Role::where('id',3)->pluck('name', 'id');
+            return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+        }
     }
 
     /**
@@ -64,6 +80,16 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
+        if (auth()->user()->role_id ==1) {
+            $input = $request->all();
+            $input['password'] = Hash::make($request['password']);
+            $user = $this->userRepository->create($input);
+            // $email_verification = new EmailVerificationController;
+            // $email_verification->processData($request->email,$request->first_name,$request->password);
+            Flash::success('User saved successfully.');
+    
+            return redirect(route('users.index'));
+        }
         $email = User::getExistingEmail($request->email);
         $domain = User::domainValidation($request);
             if(false == $email) {
@@ -77,11 +103,15 @@ class UserController extends AppBaseController
                 $roles = Role::pluck('name', 'id')->prepend('Select a Role', null);
                 return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
             }
+        $request->role_id = 3;
+        $request->school_id = auth()->user()->school_id;
         $input = $request->all();
+        //$input['school_id'] = auth()->user()->school_id;
+        //$input['role_id'] = 3;
         $input['password'] = Hash::make($request['password']);
         $user = $this->userRepository->create($input);
-        $email_verification = new EmailVerificationController;
-        $email_verification->processData($request->email,$request->first_name,$request->password);
+        // $email_verification = new EmailVerificationController;
+        // $email_verification->processData($request->email,$request->first_name,$request->password);
         Flash::success('User saved successfully.');
 
         return redirect(route('users.index'));
@@ -117,14 +147,26 @@ class UserController extends AppBaseController
     public function edit($id)
     {
         $user = $this->userRepository->find($id);
-
         if (empty($user)) {
             Flash::error('User not found');
 
             return redirect(route('users.index'));
         }
 
-        return view('users.edit')->with('user', $user);
+        //return view('users.edit')->with('user', $user);
+
+        if (auth()->user()->role_id == 1) {
+            $message = null;
+            $schools = School::pluck('school_name', 'id')->prepend('Select a School', null);
+            $roles = Role::where('id','!=',1)->pluck('name', 'id')->prepend('Select a Role', null);
+            return view('users.edit')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('user', $user);
+        } elseif (auth()->user()->role_id == 2) {
+            $user = auth()->user();
+            $message = null;
+            $schools = School::where('id',$user->school_id)->pluck('school_name', 'id');
+            $roles = Role::where('id',3)->pluck('name', 'id');
+            return view('users.edit')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('user', $user);
+        }
     }
 
     /**

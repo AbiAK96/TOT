@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\School;
 
 class SchoolController extends AppBaseController
 {
@@ -29,7 +30,7 @@ class SchoolController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $schools = $this->schoolRepository->all();
+        $schools = School::where('id','!=',1)->get();
 
         return view('schools.index')
             ->with('schools', $schools);

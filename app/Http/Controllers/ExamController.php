@@ -34,9 +34,16 @@ class ExamController extends AppBaseController
 
     public function createExams(Request $request)
     {
-        $teacher_groups = TeacherGroup::get();
-        return view('admin_exams.create')
-            ->with('teacher_groups', $teacher_groups);
+        $user = auth()->user();
+        if ($user->role_id  == 1) {
+            $teacher_groups = TeacherGroup::get();
+            return view('admin_exams.create')
+                ->with('teacher_groups', $teacher_groups);
+        } else if ($user->role_id  == 2) {
+            $teacher_groups = TeacherGroup::where('school_id',$user->school_id)->get();
+            return view('admin_exams.create')
+                ->with('teacher_groups', $teacher_groups);
+        }
     }
 
     public function storeExams(Request $request)

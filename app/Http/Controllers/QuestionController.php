@@ -12,6 +12,7 @@ use Response;
 use App\Models\QuestionTypes;
 use App\Jobs\SelectQuestionsJobs;
 use App\Models\SelectedQuestion;
+use App\Models\Question;
 
 class QuestionController extends AppBaseController
 {
@@ -160,6 +161,11 @@ class QuestionController extends AppBaseController
 
     public function selectQuestions(Request $request)
     {
+        if ($request->ids == null) {
+            Flash::error('Plese select questions.');
+
+            return redirect(route('questions.index'));
+        }
         foreach($request->ids as $id){
             $selectQuestion = (new SelectQuestionsJobs($id));
             dispatch($selectQuestion);
@@ -171,7 +177,7 @@ class QuestionController extends AppBaseController
 
     public function selectedQuestions(Request $request)
     {
-        $selected_questions = SelectedQuestion::get();
+        $selected_questions = Question::where('status',true)->get();
         return view('selected_Questions.index')
             ->with('selected_questions', $selected_questions);
     }
@@ -187,11 +193,12 @@ class QuestionController extends AppBaseController
         return redirect(route('selected_Questions.index'));
     }
 
-    public function deleteSelectedQuestionsSingle($id)
+    public function remove($id)
     {
-        $question = SelectedQuestion::where('id',$id)->first();
-        $question->delete();
-        Flash::success('Selected Question selected successfully.');
+        $question = Question::where('id',$id)->first();
+        $question->status = false;
+        $question->update();
+        Flash::success('This question removed successfully.');
 
         return redirect(route('selected_Questions.index'));
     }

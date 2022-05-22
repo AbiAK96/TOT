@@ -23,6 +23,7 @@ class CreateQuestionsTable extends Migration
             $table->string('answer_three');
             $table->string('answer_four');
             $table->integer('correct_answer');
+            $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
