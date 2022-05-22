@@ -60,7 +60,7 @@
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
                     <li class="user-header bg-primary">
-                        <img src="{{ asset('img/logo.png') }}"
+                        <img src="{{ asset('img/logo1.png') }}"
                              class="img-circle elevation-2"
                              alt="User Image">
                         <p>
@@ -97,10 +97,9 @@
     <!-- Main Footer -->
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.1.0
         </div>
         <strong>
-           Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.
+            Copyright &copy; <?= date('Y') ?> <a href="https://tot.cloud">Test The Teacher</a>.
         </strong>
         All rights reserved.
     </footer>

@@ -15,9 +15,15 @@ class CreateTeacherGroupsTable extends Migration
     {
         Schema::create('teacher_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('school_id')->unsigned();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('school_id')
+            ->references('id')
+            ->on('schools')
+            ->onDelete('cascade');
         });
     }
 

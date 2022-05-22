@@ -15,12 +15,17 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('teacher_id');
+            $table->integer('teacher_id')->unsigned();
+            $table->bigInteger('school_id')->unsigned();
             $table->string('result');
             $table->string('date');
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('school_id')
+            ->references('id')
+            ->on('schools')
+            ->onDelete('cascade');
         });
     }
 

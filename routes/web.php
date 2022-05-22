@@ -42,15 +42,16 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::delete('selectQuestions', [QuestionController::class,'selectQuestions']);
     Route::get('selected-questions', [QuestionController::class,'selectedQuestions'])->name('selected_Questions.index');
+    Route::get('selected-questions/remove/{id}', [QuestionController::class,'remove'])->name('selected_Questions.remove');
 
-    Route::post('selectedquestionsdeleteAll', [QuestionController::class,'deleteSelectedQuestions']);
-    Route::delete('selectedquestionsdelete/{id}', [QuestionController::class,'deleteSelectedQuestionsSingle'])->name('selected_question.destroy');
+   // Route::post('selectedquestionsdeleteAll', [QuestionController::class,'deleteSelectedQuestions']);
+   // Route::delete('selectedquestionsdelete/{id}', [QuestionController::class,'deleteSelectedQuestionsSingle'])->name('selected_question.destroy');
 
     Route::get('teacher_groups', [TeacherGroupController::class,'getTeacherGroups'])->name('teacher_groups.index');
     Route::get('teacher_groups/create', [TeacherGroupController::class,'create'])->name('teacher_groups.create');
     Route::post('teacher_groups/store', [TeacherGroupController::class,'storeTeacherGroups']);
 
-    Route::get('admin/exams', [ExamController::class,'getExams'])->name('admin_exams.index');
+    Route::get('admin/exams', [ExamController::class,'getExams'])->name('admin_exams.index'); 
     Route::get('admin/exams/create', [ExamController::class,'createExams'])->name('admin_exams.create');
     Route::post('admin/exams/create', [ExamController::class,'storeExams'])->name('admin_exams.store');
 

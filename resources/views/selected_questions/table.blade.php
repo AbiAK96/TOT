@@ -1,10 +1,4 @@
 <div class="table-responsive">
-	<form method="post" action="{{url('selectedquestionsdeleteAll')}}">
-		{{ csrf_field() }}
-		<br>
-        {{-- <th class="text-center"> <input type="checkbox" id="checkAll"> Select All</th> --}}
-		<a style="padding-left: 30px;"></a><input class="btn btn-danger" type="submit" name="submit" value="Delete All Selected Questions"/>
-		<br><br>
         <table class="table" id="selected_questions-table">
 			<thead>
 				<tr>        
@@ -17,7 +11,6 @@
                     <th>Answer Four</th>
                     <th>Correct Answer</th>
                     <th colspan="3">Action</th>
-                    <th>Select </th>
 					
 				</tr>
 			</thead>
@@ -34,23 +27,13 @@
                         <td class="text-center">{{ $selected_question->answer_four }}</td>
                         <td class="text-center">{{ $selected_question->correct_answer }}</td>
                         <td class="text-center"width="120">
-                            {!! Form::open(['route' => ['selected_question.destroy', $selected_question->id], 'method' => 'post']) !!}
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            {!! Form::close() !!}
+                            <a href= "{{ route('selected_Questions.remove' , [$selected_question->id]) }}"  class="button btn-sm btn-warning" id="disable">                        
+                                <i class="far fa-thumbs-down"></i>
+                            </a>
                         </td>
-						<td class="text-center"><input name='ids[]' type="checkbox" id="checkItem" 
-                         value="<?php echo $selected_question->id; ?>"></td>
 						</tr>
                         
 						<?php $index++ ?> 
                         @endforeach
 					</tbody>
 				</table>
-				<br>
-			</form>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script language="javascript">
-			$("#checkAll").click(function () {
-				$('input:checkbox').not(this).prop('checked', this.checked);
-			});
-		</script>

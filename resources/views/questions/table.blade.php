@@ -16,7 +16,8 @@
                     <th>Answer Three</th>
                     <th>Answer Four</th>
                     <th>Correct Answer</th>
-                    <th colspan="3">Action</th>
+                    <th>Status</th>
+                    <th>Action</th>
                     <th>Select </th>
 					
 				</tr>
@@ -32,7 +33,8 @@
                         <td class="text-center">{{ $question->answer_two }}</td>
                         <td class="text-center">{{ $question->answer_three }}</td>
                         <td class="text-center">{{ $question->answer_four }}</td>
-                        <td class="text-center">{{ $question->correct_answer }}</td>
+                        <td class="text-center">{{ $question->correct_answer }}</td> 
+                        <td> @if($question->status == 1) <i class="far fa-thumbs-up"> @elseif($question->status == 0) <i class="far fa-thumbs-down">@endif </i></td>
                         <td class="text-center"width="120">
                             {!! Form::open(['route' => ['questions.destroy', $question->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
@@ -48,8 +50,9 @@
                             </div>
                             {!! Form::close() !!}
                         </td>
-						<td class="text-center"><input name='ids[]' type="checkbox" id="checkItem" 
+						<td class="text-center"> @if($question->status == 0)<input name='ids[]' type="checkbox" id="checkItem" 
                          value="<?php echo $question->id; ?>">
+                        </td> @endif
 						</tr>
                         
 						<?php $index++ ?> 

@@ -1,6 +1,7 @@
 <!-- School Id Field -->
+{{-- @if(Auth::user()->role_id == 1) --}}
 <div class="form-group col-sm-6">
-    {!! Form::label('school_id', 'School Id:') !!}
+    {!! Form::label('school_id', 'School:') !!}
     {!! Form::select('school_id', $schools,null,['class' => 'form-control']) !!}
 </div>
 
@@ -45,9 +46,11 @@
     {!! Form::label('zip_code', 'Zip Code:') !!}
     {!! Form::number('zip_code', null, ['class' => 'form-control']) !!}
 </div>
-
+{{-- 
+@if(Auth::user()->role_id == 1) --}}
 <!-- Role Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('role_id', 'Role Id:') !!}
+    {!! Form::label('role_id', 'Role:') !!}
     {!! Form::select('role_id', $roles,'0',['class' => 'form-control']) !!}
 </div>
+{{-- @endif --}}

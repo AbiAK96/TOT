@@ -61,22 +61,6 @@
 </li>
 
 
-<li class="nav-item">
-    <a href="{{ route('teacher_groups.index') }}"
-       class="nav-link {{ Request::is('teacher_groups*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-users"></i></i>
-        <p style="color: black">Teacher Groups</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('admin_exams.index') }}"
-       class="nav-link {{ Request::is('admin*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-pen"></i></i>
-        <p style="color: black">Exams</p>
-    </a>
-</li>
-
 @elseif(Auth::user()->role_id == 2)
 <li class="nav-item">
     <a href="{{ route('home') }}"
@@ -143,6 +127,14 @@
        class="nav-link {{ Request::is('admin_requests*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-envelope"></i></i>
         <p style="color: black">Request</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('admin_exams.index') }}"
+       class="nav-link {{ Request::is('admin*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-pen"></i></i>
+        <p style="color: black">Exams</p>
     </a>
 </li>
 
