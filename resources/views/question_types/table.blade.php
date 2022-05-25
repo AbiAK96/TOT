@@ -14,11 +14,11 @@
                     {!! Form::open(['route' => ['questionTypes.destroy', $questionTypes->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{{ route('questionTypes.show', [$questionTypes->id]) }}"
-                           class='btn btn-default btn-xs'>
+                           class='btn btn-success btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
                         <a href="{{ route('questionTypes.edit', [$questionTypes->id]) }}"
-                           class='btn btn-default btn-xs'>
+                           class='btn btn-warning btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
                         {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}

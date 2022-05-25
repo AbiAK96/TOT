@@ -55,7 +55,11 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-
+        <div class="card">
+            <div class="card-body">
+                @include('users.search') 
+            </div>
+        </div>
         <div class="card">
             <div class="card-body p-0">
                 @include('users.table')

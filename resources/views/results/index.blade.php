@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Questions</h1>
+                    <h1><h1>{{$user->first_name .' '. $user->last_name}}'s Results</h1></h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
-                       href="{{ route('questions.create') }}">
-                        Add New
+                       href="{{ route('users.index') }}">
+                        Back
                     </a>
                 </div>
             </div>
@@ -22,14 +22,10 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-        <div class="card">
-            <div class="card-body">
-                @include('questions.search') 
-            </div>
-        </div>
+
         <div class="card">
             <div class="card-body p-0">
-                @include('questions.table')
+                {{$results}}
 
                 <div class="card-footer clearfix">
                     <div class="float-right">

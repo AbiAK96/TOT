@@ -11,6 +11,7 @@ use Flash;
 use Response;
 use App\Models\School;
 use App\Models\Role;
+use App\Models\User;
 use App\Models\TeacherTypes;
 use App\Models\SelectedQuestion;
 use App\Models\Question;
@@ -221,5 +222,61 @@ class TeacherController extends AppBaseController
         return view('teacher_exams.start')
         ->with('questions', $questions);
 
+    }
+
+    public function profileIndex(Request $request)
+    {
+        $id = auth()->user()->id;
+        $teacher = User::find($id);
+        $teacher->role = DB::table('roles')->where('id', $teacher->role_id)->first()->name;
+        $teacher->school = School::where('id', $teacher->school_id)->first()->school_name;
+
+        return view('profile.index')
+            ->with('teacher', $teacher);
+    }
+
+    public function profileEdit(Request $request)
+    {
+        $id = auth()->user()->id;
+        $teacher = User::find($id);
+
+        return view('profile.edit')
+            ->with('teacher', $teacher);
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $id = auth()->user()->id;
+        $teacher = User::find($id);
+        $teacher->first_name = $request->first_name;
+        $teacher->last_name = $request->last_name;
+        $teacher->mobile_number = $request->mobile_number;
+        if($request->profile_image != null){
+            $image = User::uploadImage($request);
+            $teacher->profile_image = $image;
+        }
+        $teacher->update();
+        Flash::success('Profile updated successfully.');
+        $teacher->role = DB::table('roles')->where('id', $teacher->role_id)->first()->name;
+        $teacher->school = School::where('id', $teacher->school_id)->first()->school_name;
+        return view('profile.index')
+            ->with('teacher', $teacher);
+    }
+
+    public function searchTeacher(Request $request)
+    {
+        $user = auth()->user();
+        $users = User::search($request);
+        $schools = School::where('id','!=',$user->id)->get();
+        return view('users.index')
+            ->with('users', $users)->with('schools', $schools);
+    }
+
+    public function getTeacherResult(Request $request)
+    {
+        $user = User::where('id',$request->id)->first();
+        $results = DB::table('results')->where('teacher_id', $request->id)->get();
+        return view('results.index')
+            ->with('results', $results)->with('user', $user);
     }
 }

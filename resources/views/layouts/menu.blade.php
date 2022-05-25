@@ -54,12 +54,18 @@
 
 <li class="nav-item">
     <a href="{{ route('selected_Questions.index') }}"
-       class="nav-link {{ Request::is('selected_questions*') ? 'active' : '' }}">
+       class="nav-link {{ Request::is('selected-questions*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-check"></i></i>
         <p style="color: black">Selected Questions</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('profile.index') }}"
+       class="nav-link {{ Request::is('profile*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-user"></i></i>
+        <p style="color: black">Profile</p>
+    </a>
+</li>
 
 @elseif(Auth::user()->role_id == 2)
 <li class="nav-item">
@@ -107,7 +113,7 @@
 
 <li class="nav-item">
     <a href="{{ route('selected_Questions.index') }}"
-       class="nav-link {{ Request::is('selected_questions*') ? 'active' : '' }}">
+       class="nav-link {{ Request::is('selected-questions*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-check"></i></i>
         <p style="color: black">Selected Questions</p>
     </a>
@@ -124,7 +130,7 @@
 
 <li class="nav-item">
     <a href="{{ route('admin_requests.index') }}"
-       class="nav-link {{ Request::is('admin_requests*') ? 'active' : '' }}">
+       class="nav-link {{ Request::is('admin/request*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-envelope"></i></i>
         <p style="color: black">Request</p>
     </a>
@@ -132,9 +138,17 @@
 
 <li class="nav-item">
     <a href="{{ route('admin_exams.index') }}"
-       class="nav-link {{ Request::is('admin*') ? 'active' : '' }}">
+       class="nav-link {{ Request::is('admin/exams*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-pen"></i></i>
         <p style="color: black">Exams</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('profile.index') }}"
+       class="nav-link {{ Request::is('profile*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-user"></i></i>
+        <p style="color: black">Profile</p>
     </a>
 </li>
 
@@ -147,8 +161,8 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('teacher_exams.index') }}"
-       class="nav-link {{ Request::is('teacher_exams*') ? 'active' : '' }}">
+    <a href="{{ route('profile.index') }}"
+       class="nav-link {{ Request::is('profile*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-user"></i></i>
         <p style="color: black">Profile</p>
     </a>

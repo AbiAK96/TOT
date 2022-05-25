@@ -18,11 +18,11 @@
                     {!! Form::open(['route' => ['schools.destroy', $school->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{{ route('schools.show', [$school->id]) }}"
-                           class='btn btn-default btn-xs'>
+                           class='btn btn-success btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
                         <a href="{{ route('schools.edit', [$school->id]) }}"
-                           class='btn btn-default btn-xs'>
+                           class='btn btn-warning btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
                         {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
