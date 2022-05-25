@@ -22,7 +22,11 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-
+        <div class="card">
+            <div class="card-body">
+                @include('schools.search') 
+            </div>
+        </div>
         <div class="card">
             <div class="card-body p-0">
                 @include('schools.table')

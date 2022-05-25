@@ -202,4 +202,12 @@ class QuestionController extends AppBaseController
 
         return redirect(route('selected_Questions.index'));
     }
+
+    public function searchQuestion(Request $request)
+    {
+        $questions = Question::search($request);
+
+        return view('questions.index')
+            ->with('questions', $questions);
+    }
 }

@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Jobs\SaveTeacherCSVJobs;
 use App\Jobs\UpdateTeacherCSVJobs;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class User
@@ -60,7 +61,8 @@ class User extends Authenticatable
         'tfa_enabled',
         'email_verified_at',
         'mobile_verified_at',
-        'role_id'
+        'role_id',
+        'profile_image'
     ];
 
     /**
@@ -80,7 +82,8 @@ class User extends Authenticatable
         'tfa_enabled' => 'boolean',
         'email_verified_at' => 'integer',
         'mobile_verified_at' => 'integer',
-        'role_id' => 'integer'
+        'role_id' => 'integer',
+        'profile_image' => 'string'
     ];
 
     /**
@@ -100,12 +103,18 @@ class User extends Authenticatable
         'tfa_enabled' => 'boolean',
         'email_verified_at' => 'integer',
         'mobile_verified_at' => 'integer',
+        'profile_image' => 'nullable|string|max:255',
         'role_id' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
 
+    public function getProfileImageAttribute($value)
+    {
+        return URL::to('/profile_images/') .'/'. $value; 
+    }
+    
     public function getExistingEmail($email)
     {
         $user = User::where('email', $email)->first();
@@ -191,5 +200,31 @@ class User extends Authenticatable
 
         }
 
+    }
+
+    public function uploadImage($request)
+    {   
+        $image_url = 'profile_image'."_".time().".jpg";
+        $image = $request->profile_image;
+        $return = $image->move(public_path('/profile_images/'), $image_url);
+        return ($image_url);
+    }
+
+    public function search($request) 
+    {
+        //print_r($request->id);die();
+        $user = auth()->user();
+        if ($user->role_id == 1) {
+            $teachers = User::where('email', 'LIKE', "%{$request->email}%")
+                            ->where('first_name', 'LIKE', "%{$request->first_name}%")
+                            ->where('school_id', $request->id)
+                            ->get();
+        } else {
+            $teachers = User::where('email', 'LIKE', "%{$request->email}%")
+                            ->where('first_name', 'LIKE', "%{$request->first_name}%")
+                            ->where('school_id', $user->school_id)
+                            ->get();
+        }
+        return $teachers;
     }
 }

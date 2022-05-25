@@ -5,13 +5,13 @@
              class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a> --}}
-    <div class="text-center" style="background-color: rgb(255, 255, 255)">
+    <div class="text-center" style="background-color: rgb(162, 162, 236)">
         <a href="{{ url('/home') }}">
-            <img src="{{ asset('img/logo_dash1.png') }}" 
+            <img src="{{ asset('img/logo_dash.png') }}" 
             class="pb-2 pt-2" alt="User Image" width="150px">    
         </a>
     </div>
-    <div class="sidebar" style="background-color: rgb(255, 255, 255)">
+    <div class="sidebar" style="background-color: rgb(162, 162, 236)">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @include('layouts.menu')

@@ -39,14 +39,14 @@ class UserController extends AppBaseController
         $user = auth()->user();
         if ($user->role_id == 1) {
             $users = User::where('id','!=',$user->id)->get();
-            
+            $schools = School::where('id','!=',$user->id)->get();
         return view('users.index')
-        ->with('users', $users);
+        ->with('users', $users)->with('schools', $schools);
         } else {
             $users = User::where('school_id',$user->school_id)->where('id','!=',$user->id)->get();
-            
+            $schools = School::where('id','!=',$user->id)->get();
         return view('users.index')
-        ->with('users', $users);
+        ->with('users', $users)->with('schools', $schools);
         }
     }
 

@@ -89,4 +89,14 @@ class School extends Model
             return $teachers;
         }
     }
+
+    public function search($request)
+    {
+        $schools = School::where('school_name', 'LIKE', "%{$request->school_name}%")
+                            ->where('school_domain', 'LIKE', "%{$request->school_domain}%")
+                            ->where('id','!=',1)
+                            ->get();
+
+        return $schools;
+    }
  }

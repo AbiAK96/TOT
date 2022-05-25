@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use App\Models\School;
+use App\Models\User;
 
 class SchoolController extends AppBaseController
 {
@@ -80,8 +81,8 @@ class SchoolController extends AppBaseController
 
             return redirect(route('schools.index'));
         }
-
-        return view('schools.show')->with('school', $school);
+        $users = User::where('school_id',$id)->get();
+        return view('schools.show')->with('school', $school)->with('users', $users);
     }
 
     /**
@@ -153,5 +154,13 @@ class SchoolController extends AppBaseController
         Flash::success('School deleted successfully.');
 
         return redirect(route('schools.index'));
+    }
+
+    public function searchSchool(Request $request)
+    {
+        $schools = School::search($request);
+
+        return view('schools.index')
+            ->with('schools', $schools);
     }
 }

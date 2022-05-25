@@ -36,7 +36,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::resource('schools', App\Http\Controllers\SchoolController::class);
     Route::resource('teacherTypes', App\Http\Controllers\TeacherTypesController::class);
     Route::resource('users', App\Http\Controllers\UserController::class);
-
+    Route::get('search/users', [App\Http\Controllers\TeacherController::class,'searchTeacher'])->name('users.search');
+    Route::get('search/schools', [App\Http\Controllers\SchoolController::class,'searchSchool'])->name('schools.search');
+    Route::get('search/questions', [App\Http\Controllers\QuestionController::class,'searchQuestion'])->name('questions.search');
+    Route::get('users/results/{id}', [App\Http\Controllers\TeacherController::class,'getTeacherResult'])->name('results.index');
     Route::post('send/forgot-password', [ForgotPasswordAPIController::class,'forgotPassword']);
     Route::get('auth/email-verification', [EmailVerificationController::class,'emailVerifyProcess']);
 
@@ -71,4 +74,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('teacher/exams', [TeacherController::class,'getExams'])->name('teacher_exams.index');
     Route::get('teacher/exams/start', [TeacherController::class,'getExamsQuestions'])->name('teacher_exams.start');
     Route::post('teacher/exams/store', [TeacherController::class,'storeResults'])->name('teacher_exams.store');
+
+    Route::get('profile', [TeacherController::class,'profileIndex'])->name('profile.index');
+    Route::post('profile', [TeacherController::class,'profileUpdate'])->name('profile.update');
+    Route::get('profile/edit', [TeacherController::class,'profileEdit'])->name('profile.edit');
 });

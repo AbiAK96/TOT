@@ -87,4 +87,13 @@ class Question extends Model
     {
         return $this->belongsTo(\App\Models\QuestionType::class, 'question_type_id');
     }
+
+    public function search($request)
+    {
+        $questions = Question::where('question', 'LIKE', "%{$request->question}%")
+                            ->where('id','!=',1)
+                            ->get();
+
+        return $questions;
+    }
 }

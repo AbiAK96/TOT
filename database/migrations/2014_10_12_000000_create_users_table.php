@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('mobile_number');
             $table->string('city');
+            $table->string('profile_image');
             $table->integer('zip_code');
             $table->boolean('tfa_enabled')->default(false);
             $table->integer('email_verified_at')->nullable();
