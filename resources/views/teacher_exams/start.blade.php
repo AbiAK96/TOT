@@ -37,13 +37,13 @@
                                             <?php $index = 1; ?>
                                             @foreach($questions as $question)
                                             <div class="form-group">
-                                                <label><input hidden type="checkbox" id="checkItem" name="id[]" value="{{$question->question_id}}" checked></label>
+                                                <label><input hidden type="checkbox" id="checkItem" checked></label>
                                                 <label> {{ $index }}. <a class="question"> {{ $question->question }} </a></label><br>
-                                                <label><input type="checkbox" id="checkItem" name="ids[]" value="1"> <a class="answer" onclick="return false"> {{ $question->answer_one }} </a></label><br>
-                                                <label><input type="checkbox" id="checkItem" name="ids[]" value="2"> <a class="answer" onclick="return false"> {{ $question->answer_two }} </a></label><br>
-                                                <label><input type="checkbox" id="checkItem" name="ids[]" value="3"> <a class="answer" onclick="return false"> {{ $question->answer_three }} </a></label><br>
-                                                <label><input type="checkbox" id="checkItem" name="ids[]" value="4"> <a class="answer" onclick="return false"> {{ $question->answer_four }} </a></label><br>
-                                                <input type="checkbox" name="active" value="active" @checked(old('active', $question->question_id))/>
+                                                <label><input type="radio" id="checkItem" name="ids[{{$question->id}}]" value="1"> <a class="answer" onclick="return false"> {{ $question->answer_one }} </a></label><br>
+                                                <label><input type="radio" id="checkItem" name="ids[{{$question->id}}]" value="2"> <a class="answer" onclick="return false"> {{ $question->answer_two }} </a></label><br>
+                                                <label><input type="radio" id="checkItem" name="ids[{{$question->id}}]" value="3"> <a class="answer" onclick="return false"> {{ $question->answer_three }} </a></label><br>
+                                                <label><input type="radio" id="checkItem" name="ids[{{$question->id}}]" value="4"> <a class="answer" onclick="return false"> {{ $question->answer_four }} </a></label><br>
+                                                
 
                                             </div>
                                             <?php $index++ ?> 
