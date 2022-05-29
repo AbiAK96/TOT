@@ -208,6 +208,6 @@ class QuestionController extends AppBaseController
         $questions = Question::search($request);
 
         return view('questions.index')
-            ->with('questions', $questions);
+            ->with('questions', $questions); 
     }
 }

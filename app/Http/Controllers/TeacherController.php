@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use App\Models\School;
+use App\Models\Result;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\TeacherTypes;
 use App\Models\SelectedQuestion;
 use App\Models\Question;
 use Illuminate\Support\Facades\DB;
+use \stdClass;
 
 class TeacherController extends AppBaseController
 {
@@ -275,8 +277,24 @@ class TeacherController extends AppBaseController
     public function getTeacherResult(Request $request)
     {
         $user = User::where('id',$request->id)->first();
-        $results = DB::table('results')->where('teacher_id', $request->id)->get();
-        return view('results.index')
-            ->with('results', $results)->with('user', $user);
+        $key = [];
+        $values = [];
+        $results = DB::table('results')->select('results.result')->where('teacher_id', $request->id)->limit(5)->get();
+        foreach ($results as $result) {
+            array_push($key,$result->result);
+        }
+        $dates = DB::table('results')->select('results.date')->where('teacher_id', $request->id)->limit(5)->get();
+        foreach ($dates as $date) {
+            array_push($values,date('y-m-d',$date->date));
+        }
+        for ($i=0; $i<=count($results); $i++) {
+            $colours[] = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
+        }
+        $chart = new stdClass();;
+        $chart->dataset = $key; 
+        $chart->labels = $values;
+        $chart->colours = $colours;
+        return view('results.index')->with('chart', $chart)->with('user', $user);
+
     }
 }
