@@ -190,7 +190,7 @@ class TeacherController extends AppBaseController
             ->with('exams', $exams);
     }
 
-    public function getExamsQuestions(Request $request)
+    public function getExamsQuestions(Request $request) 
     {
         $questions = Question::where('status',true)->get();
             return view('teacher_exams.start')
@@ -199,28 +199,32 @@ class TeacherController extends AppBaseController
 
     public function storeResults(Request $request)
     {
-        print_r($request->all());die();
-        $teacher_id = auth()->user()->id;
-        $questions_count = SelectedQuestion::count();
-        //$questions_count = 5;
-        //$count = 0;
+        $teacher = auth()->user();
+        $questions_count = Question::where('status',true)->count();
         if ($request->ids != null && count($request->ids) == $questions_count) {
-            $questions = SelectedQuestion::get();
             $count = 0;
-            foreach ($questions as $question) {
-                print_r($question->correct_answer);die();
-                foreach ($request->ids as $id) {
-                    //print_r($id);die();
-                    if ($id == $question->correct_answer) {
-                        $count = $count + 1;
-                    }
-                }
-            }
-            print_r($count);die();
+            foreach ($request->ids as $key => $value) {
+               $question = Question::where('id',$key)->first();
+               if ($question->correct_answer  == $value) {
+                   $count = $count + 1;
+               }
+           }
+           $marks = $count/$questions_count *100;
+           $result = new Result;
+           $result->teacher_id = $teacher->id;
+           $result->school_id = $teacher->school_id;
+           $result->result = $marks;
+           $result->date = time();
+           $result->save();
+           Flash::success('Exam Done');
+           $questions = Question::where('status',true)->get();
+           return view('teacher_exams.start')
+           ->with('questions', $questions);
+
         }
         Flash::error('Please Select All the answers');
 
-        $questions = SelectedQuestion::get();
+        $questions = Question::where('status',true)->get();
         return view('teacher_exams.start')
         ->with('questions', $questions);
 
