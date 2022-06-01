@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\TeacherTypes;
+use App\Models\TeacherType;
 
 class UpdateTeacherTypesRequest extends FormRequest
 {
@@ -24,7 +24,7 @@ class UpdateTeacherTypesRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = TeacherTypes::$rules;
+        $rules = TeacherType::$rules;
         
         return $rules;
     }

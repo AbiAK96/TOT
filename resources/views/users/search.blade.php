@@ -6,7 +6,7 @@
             <input name="email" type="search" class="form-control" placeholder="Email">
             <input name="first_name" type="search" class="form-control" placeholder="First Name">
             @if(Auth::user()->role_id == 1)
-            <select class="form-control"  name="id">
+            <select class="form-control"  name="school_id">
                 <option value="option_select" disabled selected>Schools</option>
                 @foreach($schools as $school)
                     <option value="{{ $school->id }}">

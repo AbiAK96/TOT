@@ -63,7 +63,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
-                    <li class="user-header bg-primary" >
+                    <li class="user-header bg-primary">
                         @if(Auth::user()->profile_image == null)
                         <img src="{{ asset('img/logo.png') }}" alt="User Image" class="img-circle elevation-2">
                         @else()

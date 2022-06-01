@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" id="questionTypes-table">
+    <table class="table table-bordered" id="questionTypes-table">
         <thead>
         <tr>
             <th>Name</th>
@@ -14,14 +14,14 @@
                     {!! Form::open(['route' => ['questionTypes.destroy', $questionTypes->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{{ route('questionTypes.show', [$questionTypes->id]) }}"
-                           class='btn btn-success btn-xs'>
+                           class='btn btn-success btn-sm'>
                             <i class="far fa-eye"></i>
                         </a>
                         <a href="{{ route('questionTypes.edit', [$questionTypes->id]) }}"
-                           class='btn btn-warning btn-xs'>
+                           class='btn btn-warning btn-sm'>
                             <i class="far fa-edit"></i>
                         </a>
-                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
                     {!! Form::close() !!}
                 </td>

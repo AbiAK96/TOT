@@ -25,13 +25,10 @@
 
         <div class="card">
             <div class="card-body p-0">
-                {{-- @include('profile.table') --}}
-                <section class="bg-light">
                     <div class="container">
                         <div class="row">
                             <a>  <br>&emsp; </a>
                             <div class="col-lg-12 mb-4 mb-sm-5">
-                                <div class="card card-style1 border-0">
                                     <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                                         <div class="row align-items-center">
                                             <div class="col-lg-6 mb-4 mb-lg-0">
@@ -57,7 +54,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    
+                                        <a class="btn btn-warning"
+                                           href="{{ route('profile.password-show') }}">
+                                            Change Password
+                                        </a>
+                                    
                             </div>
                             <div class="col-lg-12 mb-4 mb-sm-5">
                                 <div>
@@ -119,7 +121,6 @@
                             </div>
                         </div>
                     </div>
-                </section>
 
                 <div class="card-footer clearfix">
                     <div class="float-right">

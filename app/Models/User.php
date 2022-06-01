@@ -62,7 +62,8 @@ class User extends Authenticatable
         'email_verified_at',
         'mobile_verified_at',
         'role_id',
-        'profile_image'
+        'profile_image',
+        'teacher_type_id'
     ];
 
     /**
@@ -83,7 +84,8 @@ class User extends Authenticatable
         'email_verified_at' => 'integer',
         'mobile_verified_at' => 'integer',
         'role_id' => 'integer',
-        'profile_image' => 'string'
+        'profile_image' => 'string',
+        'teacher_type_id' => 'integer'
     ];
 
     /**
@@ -107,7 +109,8 @@ class User extends Authenticatable
         'role_id' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        'deleted_at' => 'nullable',
+        'teacher_type_id' => 'nullable|integer'
     ];
 
     public function getProfileImageAttribute($value)
@@ -212,12 +215,11 @@ class User extends Authenticatable
 
     public function search($request) 
     {
-        //print_r($request->id);die();
         $user = auth()->user();
         if ($user->role_id == 1) {
             $teachers = User::where('email', 'LIKE', "%{$request->email}%")
                             ->where('first_name', 'LIKE', "%{$request->first_name}%")
-                            ->where('school_id', $request->id)
+                            ->where('school_id', $request->school_id)
                             ->get();
         } else {
             $teachers = User::where('email', 'LIKE', "%{$request->email}%")
@@ -225,6 +227,16 @@ class User extends Authenticatable
                             ->where('school_id', $user->school_id)
                             ->get();
         }
+        return $teachers;
+    }
+    
+    public function searchTeacher($request) 
+    {
+        $user = auth()->user();
+        $teachers = User::where('teacher_type_id',$request->teacher_type_id)
+                            ->where('school_id', $user->school_id)
+                            ->where('id','!=' ,$user->id)
+                            ->get();
         return $teachers;
     }
 }

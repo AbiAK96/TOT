@@ -25,7 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('profile_image');
             $table->integer('zip_code');
             $table->boolean('tfa_enabled')->default(false);
-            $table->integer('email_verified_at')->nullable();
+            $table->integer('email_verified_at')->nullable(); 
+            $table->integer('teacher_type_id')->unsigned()->nullable();
             $table->integer('mobile_verified_at')->nullable();
             $table->bigInteger('role_id')->unsigned();
             $table->timestamps();
@@ -33,12 +34,15 @@ class CreateUsersTable extends Migration
 
             $table->foreign('school_id')
             ->references('id')
-            ->on('schools')
-            ->onDelete('cascade');
+            ->on('schools');
 
             $table->foreign('role_id')
             ->references('id')
             ->on('roles');
+
+            $table->foreign('teacher_type_id')
+            ->references('id')
+            ->on('teacher_types');
         });
     }
 

@@ -12,6 +12,7 @@ use Response;
 use App\Models\School;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\TeacherType;
 use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Hash;
 use App\Imports\UsersImport;
@@ -61,13 +62,15 @@ class UserController extends AppBaseController
             $message = null;
             $schools = School::where('id','!=',1)->pluck('school_name', 'id')->prepend('Select a School', null);
             $roles = Role::where('id','!=',1)->pluck('name', 'id')->prepend('Select a Role', null);
-            return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+            $teacher_types = TeacherType::pluck('name', 'id');
+            return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('teacher_types', $teacher_types);
         } elseif (auth()->user()->role_id == 2) {
             $user = auth()->user();
             $message = null;
             $schools = School::where('id',$user->school_id)->pluck('school_name', 'id');
             $roles = Role::where('id',3)->pluck('name', 'id');
-            return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+            $teacher_types = TeacherType::pluck('name', 'id');
+            return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('teacher_types', $teacher_types);
         }
     }
 
@@ -93,21 +96,23 @@ class UserController extends AppBaseController
         $email = User::getExistingEmail($request->email);
         $domain = User::domainValidation($request);
             if(false == $email) {
-                $message = 'This email is already taken';
-                $schools = School::pluck('school_name', 'id')->prepend('Select a School', null);
-                $roles = Role::pluck('name', 'id')->prepend('Select a Role', null);
-                return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+                $user = auth()->user();
+                $teacher_types = TeacherType::pluck('name', 'id');
+                $schools = School::where('id',$user->school_id)->pluck('school_name', 'id');
+                $roles = Role::where('id',3)->pluck('name', 'id');
+                Flash::error('This email is already taken');
+                return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('teacher_types', $teacher_types);
             } else if(false == $domain){
-                $message = 'Please enter own domain email address';
-                $schools = School::pluck('school_name', 'id')->prepend('Select a School', null);
-                $roles = Role::pluck('name', 'id')->prepend('Select a Role', null);
-                return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('message',$message);
+                $user = auth()->user();
+                $teacher_types = TeacherType::pluck('name', 'id');
+                $schools = School::where('id',$user->school_id)->pluck('school_name', 'id');
+                $roles = Role::where('id',3)->pluck('name', 'id');
+                Flash::error('Please enter own domain email address');
+                return view('users.create')->with('schools', $schools)->with('roles', $roles)->with('teacher_types', $teacher_types);
             }
         $request->role_id = 3;
         $request->school_id = auth()->user()->school_id;
         $input = $request->all();
-        //$input['school_id'] = auth()->user()->school_id;
-        //$input['role_id'] = 3;
         $input['password'] = Hash::make($request['password']);
         $user = $this->userRepository->create($input);
         // $email_verification = new EmailVerificationController;
@@ -159,13 +164,14 @@ class UserController extends AppBaseController
             $message = null;
             $schools = School::pluck('school_name', 'id')->prepend('Select a School', null);
             $roles = Role::where('id','!=',1)->pluck('name', 'id')->prepend('Select a Role', null);
-            return view('users.edit')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('user', $user);
+            $teacher_types = TeacherType::pluck('name', 'id');
+            return view('users.edit')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('user', $user)->with('teacher_types', $teacher_types);
         } elseif (auth()->user()->role_id == 2) {
-            $user = auth()->user();
             $message = null;
             $schools = School::where('id',$user->school_id)->pluck('school_name', 'id');
             $roles = Role::where('id',3)->pluck('name', 'id');
-            return view('users.edit')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('user', $user);
+            $teacher_types = TeacherType::pluck('name', 'id');
+            return view('users.edit')->with('schools', $schools)->with('roles', $roles)->with('message',$message)->with('user', $user)->with('teacher_types', $teacher_types);
         }
     }
 
@@ -186,8 +192,9 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
-
-        $user = $this->userRepository->update($request->all(), $id);
+        $input = $request->all();
+        $input['password'] = Hash::make($request['password']);
+        $user = $this->userRepository->update($input, $id);
 
         Flash::success('User updated successfully.');
 
