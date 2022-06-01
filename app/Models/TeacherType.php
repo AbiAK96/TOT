@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Database\Eloquent\Collection $teachers
  * @property string $name
  */
-class TeacherTypes extends Model
+class TeacherType extends Model
 {
     use SoftDeletes;
 

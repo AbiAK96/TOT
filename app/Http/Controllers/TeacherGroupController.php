@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use App\Models\TeacherGroup;
+use App\Models\TeacherType;
 use App\Models\User;
 use App\Jobs\SaveGroupTragetsJobs;
+use Illuminate\Support\Facades\DB;
 
 class TeacherGroupController extends AppBaseController
 {
@@ -22,8 +24,9 @@ class TeacherGroupController extends AppBaseController
 
     public function create()
     {
-        $teachers = User::where('role_id',3)->where('school_id',auth()->user()->school_id)->get();
-        return view('teacher_groups.create')->with('teachers',$teachers);
+        $teachers = User::where('role_id',3)->where('school_id',auth()->user()->school_id)->where('teacher_type_id',1)->get();
+        $teacher_types = TeacherType::get();
+        return view('teacher_groups.create')->with('teachers',$teachers)->with('teacher_types',$teacher_types);
     }
 
     public function storeTeacherGroups(Request $request)
@@ -41,11 +44,40 @@ class TeacherGroupController extends AppBaseController
     
             Flash::success('Teacher Group created successfully.');
     
-            $teachers = User::where('role_id',3)->where('school_id',auth()->user()->school_id)->get();
-            return view('teacher_groups.create')->with('teachers',$teachers);
+            $teacher_groups = TeacherGroup::where('school_id',auth()->user()->school_id)->get();
+            return view('teacher_groups.index')
+                ->with('teacher_groups', $teacher_groups);
         }
         Flash::error('Please Enter group name and select a teacher');
         $teachers = User::where('role_id',3)->where('school_id',auth()->user()->school_id)->get();
         return view('teacher_groups.create')->with('teachers',$teachers);
+    }
+
+    public function searchTeachers(Request $request)
+    {
+        $teachers = User::searchTeacher($request); 
+        $teacher_types = TeacherType::get();
+        return view('teacher_groups.create')->with('teachers',$teachers)->with('teacher_types',$teacher_types);
+    }
+
+    public function destroy(Request $request)
+    {
+        $teacher_group = TeacherGroup::where('id',$request->id)->first();
+        if (empty($teacher_group)) {
+            Flash::error('Teacher group not found');
+            return redirect(route('teacher_groups.index'));
+        }
+        $teacher_group->delete();
+        Flash::success('Teacher group  deleted successfully.');
+        return redirect(route('teacher_groups.index'));
+    }
+
+    public function getTargets(Request $request)
+    {
+        $targets = DB::table('group_targets')
+                ->where('group_id', $request->id)
+                ->get();
+        $teacher_group = TeacherGroup::where('id',$request->id)->first();
+        return view('teacher_groups.target')->with('targets',$targets)->with('teacher_group',$teacher_group);
     }
 }

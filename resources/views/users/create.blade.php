@@ -14,9 +14,8 @@
     <div class="content px-3">
 
         @include('adminlte-templates::common.errors')
-
+        @include('flash::message')
         <div class="card">
-            <a style="color: red"> {{ $message }} </a>
             {!! Form::open(['route' => 'users.store']) !!}
 
             <div class="card-body">

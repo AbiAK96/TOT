@@ -1,4 +1,5 @@
 <div class="table-responsive">
+<div class="table table-bordered">
 	<form method="post" action="{{url('selectQuestions')}}">
 		{{ csrf_field() }}
 		<br>
@@ -8,17 +9,17 @@
         <table class="table" id="questions-table">
 			<thead>
 				<tr>        
-                    <th>Id</th>
-                    <th>Question Type Id</th>
-                    <th>Question</th>
-                    <th>Answer One</th>
-                    <th>Answer Two</th>
-                    <th>Answer Three</th>
-                    <th>Answer Four</th>
-                    <th>Correct Answer</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                    <th>Select </th>
+                    <th class="text-center" style="width: 1%">Id</th>
+                    <th class="text-center" style="width: 3%">Type</th>
+                    <th class="text-center" style="width: 50%">Question</th>
+                    <th class="text-center" style="width: 10%">Answer One</th>
+                    <th class="text-center" style="width: 10%">Answer Two</th>
+                    <th class="text-center" style="width: 10%">Answer Three</th>
+                    <th class="text-center" style="width: 10%">Answer Four</th>
+                    <th class="text-center" style="width: 10%">Correct Answer</th>
+                    <th class="text-center" style="width: 10%">Status</th>
+                    <th class="text-center" style="width: 10%">Action</th>
+                    <th class="text-center" style="width: 10%">Select </th>
 					
 				</tr>
 			</thead>
@@ -34,7 +35,7 @@
                         <td class="text-center">{{ $question->answer_three }}</td>
                         <td class="text-center">{{ $question->answer_four }}</td>
                         <td class="text-center">{{ $question->correct_answer }}</td> 
-                        <td> @if($question->status == 1) <i class="far fa-thumbs-up"> @elseif($question->status == 0) <i class="far fa-thumbs-down">@endif </i></td>
+                        <td class="text-center"> @if($question->status == 1) <i class="far fa-thumbs-up"> @elseif($question->status == 0) <i class="far fa-thumbs-down">@endif </i></td>
                         <td class="text-center"width="120">
                             {!! Form::open(['route' => ['questions.destroy', $question->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
@@ -61,6 +62,8 @@
 				</table>
 				<br>
 			</form>
+</div>
+</div>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script language="javascript">
 			$("#checkAll").click(function () {

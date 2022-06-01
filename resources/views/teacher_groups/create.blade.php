@@ -16,10 +16,13 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-
         <div class="card">
             <div class="card-body p-0">
+
                 <div class="table-responsive">
+                    <div class="card-body" style="padding-left: 38px;">
+                        @include('teacher_groups.search') 
+                    </div>
                     <form method="post" action="{{url('teacher_groups/store')}}">
                         {{ csrf_field() }}
                         <br>

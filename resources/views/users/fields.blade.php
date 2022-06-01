@@ -54,3 +54,8 @@
     {!! Form::select('role_id', $roles,'0',['class' => 'form-control']) !!}
 </div>
 {{-- @endif --}}
+<!-- Teacher Type Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('teacher_type_id', 'Teacher Type:') !!}
+    {!! Form::select('teacher_type_id', $teacher_types,'0',['class' => 'form-control']) !!}
+</div>

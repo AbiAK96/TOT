@@ -13,11 +13,12 @@ use App\Models\School;
 use App\Models\Result;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\TeacherTypes;
+use App\Models\TeacherType;
 use App\Models\SelectedQuestion;
 use App\Models\Question;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends AppBaseController
 {
@@ -57,7 +58,7 @@ class TeacherController extends AppBaseController
 
         $schools = School::pluck('school_name', 'id')->prepend('Select a School', '0');
         $roles = Role::pluck('name', 'id')->prepend('Select a Role', '0');
-        $teacher_types = TeacherTypes::pluck('name', 'id')->prepend('Select a Type', '0');
+        $teacher_types = TeacherType::pluck('name', 'id')->prepend('Select a Type', '0');
         return view('teachers.create')->with('schools', $schools)->with('roles', $roles)
         ->with('teacher_types', $teacher_types);
     }
@@ -119,7 +120,7 @@ class TeacherController extends AppBaseController
         }
         $schools = School::pluck('school_name', 'id')->prepend('Select a School', '0');
         $roles = Role::pluck('name', 'id')->prepend('Select a Role', '0');
-        $teacher_types = TeacherTypes::pluck('name', 'id')->prepend('Select a Type', '0');
+        $teacher_types = TeacherType::pluck('name', 'id')->prepend('Select a Type', '0');
 
         return view('teachers.edit')->with('schools', $schools)->with('roles', $roles)
         ->with('teacher_types', $teacher_types)->with('teacher', $teacher);
@@ -272,7 +273,8 @@ class TeacherController extends AppBaseController
     public function searchTeacher(Request $request)
     {
         $user = auth()->user();
-        $users = User::search($request);
+        //print_r($request->all());die();
+        $users = User::search($request);  
         $schools = School::where('id','!=',$user->id)->get();
         return view('users.index')
             ->with('users', $users)->with('schools', $schools);
@@ -300,5 +302,36 @@ class TeacherController extends AppBaseController
         $chart->colours = $colours;
         return view('results.index')->with('chart', $chart)->with('user', $user);
 
+    }
+
+    public function changePasswordView()
+    {
+        return view('profile.password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $teacher = auth()->user();
+        if ($request->current_password != null && $request->new_password != null && $request->confirm_password != null) {
+            if ($request->new_password == $request->confirm_password) {
+                if(Hash::check($request->current_password,$teacher->password)){
+                    $teacher->update([
+                        'password'=>Hash::make($request->new_password)
+                    ]);
+                    Flash::success('Password successfully updated');
+                    return view('profile.index')
+                    ->with('teacher', $teacher);
+                }else{
+                    Flash::error('Current password does not matched');
+                    return redirect(route('profile.password-show'));
+                }
+            }
+            Flash::error('New password and current passwords are not match');
+            return redirect(route('profile.password-show'));
+
+        }
+
+        Flash::error('All fields are mandatory');
+        return redirect(route('profile.password-show'));
     }
 }

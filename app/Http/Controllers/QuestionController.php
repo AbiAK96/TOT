@@ -162,7 +162,7 @@ class QuestionController extends AppBaseController
     public function selectQuestions(Request $request)
     {
         if ($request->ids == null) {
-            Flash::error('Plese select questions.');
+            Flash::error('Please select questions.');
 
             return redirect(route('questions.index'));
         }

@@ -42,7 +42,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('users/results/{id}', [App\Http\Controllers\TeacherController::class,'getTeacherResult'])->name('results.index');
     Route::post('send/forgot-password', [ForgotPasswordAPIController::class,'forgotPassword']);
     Route::get('auth/email-verification', [EmailVerificationController::class,'emailVerifyProcess']);
-
     Route::delete('selectQuestions', [QuestionController::class,'selectQuestions']);
     Route::get('selected-questions', [QuestionController::class,'selectedQuestions'])->name('selected_Questions.index');
     Route::get('selected-questions/remove/{id}', [QuestionController::class,'remove'])->name('selected_Questions.remove');
@@ -64,8 +63,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::get('admin/request', [RequestController::class,'indexadmin'])->name('admin_requests.index');
     Route::post('admin/request/approve', [RequestController::class,'approve'])->name('admin_requests.approve');
-    Route::post('teacher/request/show', [RequestController::class,'show'])->name('admin_requests.show');
-    Route::get('teacher/request/show', [RequestController::class,'view'])->name('admin_requests.view');
+    Route::post('admin/teacher/request/show', [RequestController::class,'show'])->name('admin_requests.show');
+    Route::get('admin/teacher/request/show', [RequestController::class,'view'])->name('admin_requests.view');
 
     Route::post('import', [App\Http\Controllers\UserController::class,'import']);
     Route::get('downloadfile',[App\Http\Controllers\UserController::class,'downloadfile'])->name('sample_csv_download');
@@ -78,4 +77,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('profile', [TeacherController::class,'profileIndex'])->name('profile.index');
     Route::post('profile', [TeacherController::class,'profileUpdate'])->name('profile.update');
     Route::get('profile/edit', [TeacherController::class,'profileEdit'])->name('profile.edit');
+    Route::get('profile/password', [TeacherController::class,'changePasswordView'])->name('profile.password-show');
+    Route::post('profile/password', [TeacherController::class,'changePassword'])->name('profile.password-update');
+
+    Route::get('tearcher_group/search', [TeacherGroupController::class,'searchTeachers'])->name('tearcher_group.search');
+    Route::delete('teacher_groups/delete', [TeacherGroupController::class,'destroy'])->name('teacher_groups.delete');
+    Route::get('teacher_groups/target/{id}', [TeacherGroupController::class,'getTargets'])->name('teacher_groups.target');
 });
