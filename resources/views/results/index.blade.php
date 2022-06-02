@@ -34,16 +34,68 @@
                                     @if($chart->labels != null)
                                         <canvas id="userChart"></canvas>
                                     @else
-                                    <div class="alert alert-primary" role="alert">
+                                    <div class="alert alert-primary" role="alert"> 
                                         Results not found
                                       </div>
                                     @endif
                                 </div>
                                 <div class="col-lg-12 mb-4 mb-sm-5">
                                     <div>
-                                        <span class="section-title text-primary mb-3 mb-sm-4">About Me</span>
-                                        <p>Edith is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                        <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.</p>
+                                        <span class="section-title text-primary mb-3 mb-sm-4">                <div class="col-sm-6">
+                                            <h1><h1>Results</h1></h1>
+                                        </div></span>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="users-table">
+                                                <thead>
+                                                <tr>
+                                                <th class="text-center" style="width: 5%">#</th>
+                                                <th class="text-center" style="width: 5%">Date</th>
+                                                <th class="text-center" style="width: 5%">Result</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $index = 1; ?>
+                                                @foreach($teacher_results as $teacher_result)
+                                                    <tr>
+                                                    <td class="text-center">{{ $index }}</td>
+                                                    <td class="text-center">{{ date('y-m-d',$teacher_result->date) }}</td>
+                                                    <td class="text-center">{{ $teacher_result->result.'%' }}</td>
+                                                    </tr>
+                                                    <?php $index++ ?> 
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 mb-4 mb-sm-5">
+                                    <div>
+                                        <span class="section-title text-primary mb-3 mb-sm-4">                <div class="col-sm-6">
+                                            <h1><h1>Book Details</h1></h1>
+                                        </div></span>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="users-table">
+                                                <thead>
+                                                <tr>
+                                                <th class="text-center" style="width: 5%">#</th>
+                                                <th class="text-center" style="width: 5%">Book Name</th>
+                                                <th class="text-center" style="width: 5%">Download Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $index = 1; ?>
+                                                @foreach($books as $book)
+                                                    <tr>
+                                                    <td class="text-center">{{ $index }}</td>
+                                                    <td class="text-center">{{ $book->name }}</td>
+                                                    <td class="text-center">{{ date('y-m-d',$book->date) }}</td>
+                                                    </tr>
+                                                    <?php $index++ ?> 
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
