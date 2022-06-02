@@ -16,9 +16,11 @@ use App\Models\User;
 use App\Models\TeacherType;
 use App\Models\SelectedQuestion;
 use App\Models\Question;
+use App\Models\Book;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
 use Illuminate\Support\Facades\Hash;
+use Storage;
 
 class TeacherController extends AppBaseController
 {
@@ -283,6 +285,11 @@ class TeacherController extends AppBaseController
     public function getTeacherResult(Request $request)
     {
         $user = User::where('id',$request->id)->first();
+        $books = DB::table('teacher_book_details')->where('teacher_id', $request->id)->get();
+        foreach($books as $book) {
+            $book_name = Book::where('id',$book->book_id)->first()->name;
+            $book->name = $book_name;
+        }
         $key = [];
         $values = [];
         $results = DB::table('results')->select('results.result')->where('teacher_id', $request->id)->limit(5)->get();
@@ -300,7 +307,8 @@ class TeacherController extends AppBaseController
         $chart->dataset = $key; 
         $chart->labels = $values;
         $chart->colours = $colours;
-        return view('results.index')->with('chart', $chart)->with('user', $user);
+        $teacher_results = DB::table('results')->where('teacher_id', $request->id)->get();
+        return view('results.index')->with('chart', $chart)->with('user', $user)->with('books', $books)->with('teacher_results', $teacher_results);
 
     }
 
@@ -333,5 +341,11 @@ class TeacherController extends AppBaseController
 
         Flash::error('All fields are mandatory');
         return redirect(route('profile.password-show'));
+    }
+
+    public function getBooks(Request $request)
+    {
+        $books = Book::first();
+        return view('books.index')->with('books',$books);
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\TeacherGroupController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\BookController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 
@@ -83,4 +84,14 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('tearcher_group/search', [TeacherGroupController::class,'searchTeachers'])->name('tearcher_group.search');
     Route::delete('teacher_groups/delete', [TeacherGroupController::class,'destroy'])->name('teacher_groups.delete');
     Route::get('teacher_groups/target/{id}', [TeacherGroupController::class,'getTargets'])->name('teacher_groups.target');
+
+    Route::get('teacher/books', [BookController::class,'booksIndex'])->name('teacher_books.index');
+    Route::get('teacher/books/show/{id}', [BookController::class,'booksShow'])->name('teacher_books.show');
+    Route::post('teacher/books/download/{id}', [BookController::class,'booksDownload'])->name('teacher_books.download');
+    // Route::get('teacher/books', [BookController::class,'index'])->name('teacher_books.index');
+    // Route::get('teacher/books', [BookController::class,'index'])->name('teacher_books.index');
+
+    Route::resource('books', BookController::class);
 });
+
+

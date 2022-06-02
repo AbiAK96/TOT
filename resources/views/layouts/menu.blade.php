@@ -66,7 +66,13 @@
         <p style="color: black">Profile</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('books.index') }}"
+       class="nav-link {{ Request::is('books*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-book-open"></i></i>
+        <p style="color: black">Books</p>
+    </a>
+</li>
 @elseif(Auth::user()->role_id == 2)
 <li class="nav-item">
     <a href="{{ route('home') }}"
@@ -152,6 +158,14 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('admin_books.index') }}"
+       class="nav-link {{ Request::is('admin_books*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-book-open"></i></i>
+        <p style="color: black">Profile</p>
+    </a>
+</li>
+
 @elseif(Auth::user()->role_id == 3)
 <li class="nav-item">
     <a href="{{ route('home') }}"
@@ -185,6 +199,14 @@
         <p style="color: black">Request</p>
     </a>
 </li>
-@endif    
+
+<li class="nav-item">
+    <a href="{{ route('teacher_books.index') }}"
+       class="nav-link {{ Request::is('teacher/books*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-book-open"></i></i>
+        <p style="color: black">Books</p>
+    </a>
+</li>
+@endif
 
 

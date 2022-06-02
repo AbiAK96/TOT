@@ -72,7 +72,7 @@ class TeacherGroupController extends AppBaseController
         return redirect(route('teacher_groups.index'));
     }
 
-    public function getTargets(Request $request)
+    public function getTargets(Request $request) 
     {
         $targets = DB::table('group_targets')
                 ->where('group_id', $request->id)
