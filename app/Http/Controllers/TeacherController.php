@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\TeacherType;
 use App\Models\SelectedQuestion;
 use App\Models\Question;
+use App\Models\QuestionTypes;
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
@@ -202,6 +203,7 @@ class TeacherController extends AppBaseController
 
     public function storeResults(Request $request)
     {
+        
         $teacher = auth()->user();
         $questions_count = Question::where('status',true)->count();
         if ($request->ids != null && count($request->ids) == $questions_count) {
@@ -212,12 +214,47 @@ class TeacherController extends AppBaseController
                    $count = $count + 1;
                }
            }
+           $question_details = [];
+           foreach ($request->ids as $key => $value) {
+            $question = Question::where('id',$key)->first();
+            if ($value == 1) {
+                $choosed_answer  = $question->answer_one;
+            } elseif ($value == 2) {
+                $choosed_answer  = $question->answer_two;
+            } elseif ($value == 3) {
+                $choosed_answer  = $question->answer_three;
+            } elseif ($value == 4) {
+                $choosed_answer  = $question->answer_four;
+            }
+            if ($question->correct_answer == 1) {
+                $correct_answer  = $question->answer_one;
+            } elseif ($question->correct_answer == 2) {
+                $correct_answer  = $question->answer_two;
+            } elseif ($question->correct_answer == 3) {
+                $correct_answer  = $question->answer_three;
+            } elseif ($question->correct_answer == 4) {
+                $correct_answer  = $question->answer_four;
+            }
+            
+            $data = 
+                array (
+                    "question"          => $question->question,
+                    "correct_answer"    => $correct_answer,
+                    "choosed_answer"    => $choosed_answer
+                );
+                array_push($question_details,$data);
+
+        }
+           $question = Question::where('status',true)->first();
+           $type = QuestionTypes::where('id',$question->question_type_id)->first()->name;
            $marks = $count/$questions_count *100;
            $result = new Result;
            $result->teacher_id = $teacher->id;
            $result->school_id = $teacher->school_id;
+           $result->question_type = $type;
            $result->result = $marks;
            $result->date = time();
+           $result->question_details = json_encode($question_details);
            $result->save();
            Flash::success('Exam Done');
            $questions = Question::where('status',true)->get();
@@ -309,6 +346,20 @@ class TeacherController extends AppBaseController
         $chart->colours = $colours;
         $teacher_results = DB::table('results')->where('teacher_id', $request->id)->get();
         return view('results.index')->with('chart', $chart)->with('user', $user)->with('books', $books)->with('teacher_results', $teacher_results);
+
+    }
+
+    public function getResultQuestionsDeatils(Request $request)
+    {
+        $result = Result::where('id',$request->id)->first();
+        $details = json_decode($result->question_details);
+        // $result->details = $details;
+        // $ques = [];
+        // foreach($details as $detail) {
+        //     print_r($detail->question);die();
+        // }
+        // dd($questions);
+        return view('results.question_details')->with('details', $details);
 
     }
 

@@ -51,6 +51,8 @@
                                                 <th class="text-center" style="width: 5%">#</th>
                                                 <th class="text-center" style="width: 5%">Date</th>
                                                 <th class="text-center" style="width: 5%">Result</th>
+                                                <th class="text-center" style="width: 5%">Exam Type</th>
+                                                <th class="text-center" style="width: 5%">Question Details</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -60,6 +62,12 @@
                                                     <td class="text-center">{{ $index }}</td>
                                                     <td class="text-center">{{ date('y-m-d',$teacher_result->date) }}</td>
                                                     <td class="text-center">{{ $teacher_result->result.'%' }}</td>
+                                                    <td class="text-center">{{ $teacher_result->question_type }}</td>
+                                                    <td class="text-center">
+                                                        {!! Form::open(['route' => ['results.question_details', $teacher_result->id], 'method' => 'get']) !!}
+                                                        {!! Form::button('<i class="far fa-eye"></i>', ['type' => 'submit', 'class' => 'btn btn-default btn-sm']) !!}
+                                                        {!! Form::close() !!}
+                                                    </td>
                                                     </tr>
                                                     <?php $index++ ?> 
                                                 @endforeach

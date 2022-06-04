@@ -33,10 +33,17 @@ class QuestionController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $questions = $this->questionRepository->all();
-
+        $questions = Question::where('question_type_id',1)->get();
+        $question = Question::where('question_type_id',1)->first();
+        if ($question == null) {
+            $type = 'No Questions';
+        } else {
+            $type = QuestionTypes::where('id',$question->question_type_id)->first()->name;
+        }
+       
+        $question_types = QuestionTypes::get();
         return view('questions.index')
-            ->with('questions', $questions);
+            ->with('questions', $questions)->with('question_types', $question_types)->with('type', $type);
     }
 
     /**
@@ -166,20 +173,47 @@ class QuestionController extends AppBaseController
 
             return redirect(route('questions.index'));
         }
-        foreach($request->ids as $id){
-            $selectQuestion = (new SelectQuestionsJobs($id));
-            dispatch($selectQuestion);
-        }
-        Flash::success('Question selected successfully.');
-
-        return redirect(route('questions.index'));
+        $request_question = Question::where('id',$request->ids[0])->first();
+        $selected_question = Question::where('status',true)->first();
+            if ($selected_question == null) {
+                foreach($request->ids as $id){
+                    $selectQuestion = (new SelectQuestionsJobs($id));
+                    dispatch($selectQuestion);
+                }
+                
+                Flash::success('Question selected successfully.');
+                return redirect(route('questions.index'));
+            } 
+            
+            if ($request_question->question_type_id == $selected_question->question_type_id) {
+                foreach($request->ids as $id){
+                    $selectQuestion = (new SelectQuestionsJobs($id));
+                    dispatch($selectQuestion);
+                }
+                
+                Flash::success('Question selected successfully.');
+                return redirect(route('questions.index'));
+            }
+            $selected_question_name = QuestionTypes::where('id',$selected_question->question_type_id)->first()->name;
+            Flash::error('Please select '.$selected_question_name.' questions.');
+            $questions = Question::where('question_type_id',1)->get();
+            $question_types = QuestionTypes::get();
+            return view('questions.index')
+                ->with('questions', $questions)->with('question_types', $question_types);
+            
     }
 
     public function selectedQuestions(Request $request)
     {
+        $question = Question::where('question_type_id',1)->first();
+        if ($question == null) {
+            $type = 'No Questions';
+        } else {
+            $type = QuestionTypes::where('id',$question->question_type_id)->first()->name;
+        }
         $selected_questions = Question::where('status',true)->get();
         return view('selected_Questions.index')
-            ->with('selected_questions', $selected_questions);
+            ->with('selected_questions', $selected_questions)->with('type', $type);
     }
 
     public function deleteSelectedQuestions(Request $request)
@@ -206,8 +240,9 @@ class QuestionController extends AppBaseController
     public function searchQuestion(Request $request)
     {
         $questions = Question::search($request);
-
+        $question_types = QuestionTypes::get();
+        $type = QuestionTypes::where('id',$request->question_type_id)->first()->name;
         return view('questions.index')
-            ->with('questions', $questions); 
+            ->with('questions', $questions)->with('question_types', $question_types)->with('type', $type); 
     }
 }

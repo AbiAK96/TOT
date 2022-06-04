@@ -53,7 +53,7 @@ class TeacherGroupController extends AppBaseController
         return view('teacher_groups.create')->with('teachers',$teachers);
     }
 
-    public function searchTeachers(Request $request)
+    public function searchTeachers(Request $request) 
     {
         $teachers = User::searchTeacher($request); 
         $teacher_types = TeacherType::get();

@@ -159,10 +159,10 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin_books.index') }}"
-       class="nav-link {{ Request::is('admin_books*') ? 'active' : '' }}">
+    <a href="{{ route('books.index') }}"
+       class="nav-link {{ Request::is('books*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-book-open"></i></i>
-        <p style="color: black">Profile</p>
+        <p style="color: black">Books</p>
     </a>
 </li>
 

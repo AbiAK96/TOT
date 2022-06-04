@@ -11,8 +11,8 @@
 				<tr>        
                     <th class="text-center" style="width: 1%">Id</th>
                     <th class="text-center" style="width: 3%">Type</th>
-                    <th class="text-center" style="width: 50%">Question</th>
-                    <th class="text-center" style="width: 10%">Answer One</th>
+                    <th class="text-center" style="width: 10%">Question</th>
+                    <th class="text-center" style="width: 20%">Answer One</th>
                     <th class="text-center" style="width: 10%">Answer Two</th>
                     <th class="text-center" style="width: 10%">Answer Three</th>
                     <th class="text-center" style="width: 10%">Answer Four</th>

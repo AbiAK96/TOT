@@ -17,15 +17,20 @@ class CreateResultsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('teacher_id')->unsigned();
             $table->bigInteger('school_id')->unsigned();
+            $table->string('question_type');
             $table->string('result');
             $table->string('date');
+            $table->longText('question_details');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('school_id')
             ->references('id')
-            ->on('schools')
-            ->onDelete('cascade');
+            ->on('schools');
+
+            $table->foreign('teacher_id')
+            ->references('id')
+            ->on('users');
         });
     }
 
