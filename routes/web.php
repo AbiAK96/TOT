@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('search/schools', [App\Http\Controllers\SchoolController::class,'searchSchool'])->name('schools.search');
     Route::get('search/questions', [App\Http\Controllers\QuestionController::class,'searchQuestion'])->name('questions.search');
     Route::get('users/results/{id}', [App\Http\Controllers\TeacherController::class,'getTeacherResult'])->name('results.index');
+    Route::get('users/results/question-details/{id}', [App\Http\Controllers\TeacherController::class,'getResultQuestionsDeatils'])->name('results.question_details');
     Route::post('send/forgot-password', [ForgotPasswordAPIController::class,'forgotPassword']);
     Route::get('auth/email-verification', [EmailVerificationController::class,'emailVerifyProcess']);
     Route::delete('selectQuestions', [QuestionController::class,'selectQuestions']);
@@ -91,7 +92,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     // Route::get('teacher/books', [BookController::class,'index'])->name('teacher_books.index');
     // Route::get('teacher/books', [BookController::class,'index'])->name('teacher_books.index');
 
-    Route::resource('books', BookController::class);
+    Route::resource('books', BookController::class); 
 });
 
 

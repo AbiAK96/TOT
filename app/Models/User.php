@@ -230,7 +230,7 @@ class User extends Authenticatable
         return $teachers;
     }
     
-    public function searchTeacher($request) 
+    public function searchTeacher($request)  
     {
         $user = auth()->user();
         $teachers = User::where('teacher_type_id',$request->teacher_type_id)

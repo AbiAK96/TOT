@@ -27,8 +27,8 @@
                             <div class="col-md-12">
                                 <div id="showimages"></div>
                             </div>
-                            <div class="col-md-6 offset-3 mt-5">
-                                <div class="card">
+                            <div class="col-md-12 lg-12">
+                                <div>
         
                                     <div class="card-body">
 
@@ -48,18 +48,19 @@
                                             </div>
                                             <?php $index++ ?> 
                                             @endforeach  
-                                            <div class="form-group text-center">
-                                                <button type="submit" class="btn btn-success btn-sm">Finish</button>
-                                            </div>
-                                        </form>
+
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 <div class="card-footer clearfix">
-                    <div class="float-right">
-                        
+                    <div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success btn-lg btn-block">Finish</button>
+                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
