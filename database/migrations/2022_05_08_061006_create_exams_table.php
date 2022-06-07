@@ -15,13 +15,18 @@ class CreateExamsTable extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('school_id')->unsigned();
             $table->string('name');
             $table->string('teacher_group_id');
             $table->string('start_time');
             $table->string('end_time');
-
+            $table->boolean('status')->default(false); 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('school_id')
+            ->references('id')
+            ->on('schools');
         });
     }
 

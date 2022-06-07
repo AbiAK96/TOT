@@ -12,8 +12,8 @@
         @foreach($exams as $exam)
             <tr>
             <td>{{ $exam->name }}</td>
-            <td>{{ date('y-m-d h:m:s',$exam->start_time) }}</td>
-            <td>{{ date('y-m-d h:m:s',$exam->end_time) }}</td>
+            <td>{{ $exam->start_time }}</td> 
+            <td>{{ $exam->end_time }}</td>
             <td width="150">
                     <a class="btn btn-primary float-right"
                        href="{{ route('teacher_exams.start') }}">

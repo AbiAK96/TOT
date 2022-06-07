@@ -16,12 +16,18 @@ class CreateDraftExamsTable extends Migration
         Schema::create('draft_exams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('teacher_id');
+            $table->bigInteger('exam_id')->unsigned();
             $table->string('start_time');
             $table->string('end_time');
             $table->string('name');
-
+            $table->boolean('status')->default(false); 
             $table->timestamps();
             $table->softDeletes();
+
+            
+            $table->foreign('exam_id')
+            ->references('id')
+            ->on('exams');
         });
     }
 

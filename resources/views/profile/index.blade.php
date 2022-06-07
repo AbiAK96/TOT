@@ -54,14 +54,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                        <a class="btn btn-warning"
-                                           href="{{ route('profile.password-show') }}">
-                                            Change Password
-                                        </a>
-                                    
+                                        <div class="float-right">
+                                            <a class="btn btn-warning" style="float: left"
+                                            href="{{ route('profile.password-show') }}">
+                                             Change Password
+                                         </a>
+                                        </div>
                             </div>
-                            <div class="col-lg-12 mb-4 mb-sm-5">
+                            {{-- <div class="col-lg-12 mb-4 mb-sm-5">
                                 <div>
                                     <span class="section-title text-primary mb-3 mb-sm-4">About Me</span>
                                     <p>Edith is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
@@ -118,7 +118,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 

@@ -45,11 +45,11 @@
         <div class="card-body login-card-body">
             <div class="login-logo">
                 <a href="{{ url('/home') }}">
-                    <img src="{{ asset('img/logo.png') }}"  
+                    <img src="{{ asset('img/edu.png') }}"  
                     class="pb-2" alt="Logo" width="150px">    
                 </a>
             </div>
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Best Way To Test The Teacher</p>
             <form method="post" action="{{ url('/login') }}">
                 @csrf
                 <div class="input-group mb-3">
@@ -69,6 +69,7 @@
                 <div class="input-group mb-3">
                     <input type="password"
                            name="password"
+                           id="password"
                            placeholder="Password"
                            class="form-control @error('password') is-invalid @enderror">
                     <div class="input-group-append">
@@ -79,18 +80,14 @@
                     @error('password')
                     <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
-
+                    
                 </div>
-
+                <input type="checkbox" onclick="myFunction1()"> Show Password
+                <br>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">Remember Me</label>
-                        </div>
-                    </div>
-
+                    
                     <div class="col-4">
+                        <br>
                         <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                     </div>
 
@@ -103,6 +100,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <p class="mb-1">
                     <a href="{{ route('password.request') }}">I forgot my password</a>
                 </p>
@@ -112,7 +110,16 @@
         </div>
         <!-- /.login-card-body -->
     </div>
-
+    <script>
+        function myFunction1() {
+          var x = document.getElementById("password");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
+        }
+        </script>
 </div>
 <!-- /.login-box -->
 

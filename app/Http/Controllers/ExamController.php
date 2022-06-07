@@ -17,7 +17,7 @@ class ExamController extends AppBaseController
 {
     public function getExams(Request $request)
     {
-        $exams = Exam::get();
+        $exams = Exam::where('school_id',auth()->user()->school_id)->get();
         
         foreach($exams as $exam){
             $groups = [];
@@ -51,8 +51,11 @@ class ExamController extends AppBaseController
         $exam = new Exam;
         $exam->name = $request->name;
         $exam->teacher_group_id = json_encode($request->ids);
-        $exam->start_time = strtotime($request->start_time);
-        $exam->end_time = strtotime($request->start_time);
+        // $exam->start_time = strtotime($request->start_time);
+        // $exam->end_time = strtotime($request->end_time);
+        $exam->start_time = $request->start_time;
+        $exam->end_time = $request->end_time;
+        $exam->school_id = auth()->user()->school_id;
         $exam->save();
         
         Flash::success('Exams created successfully.');
@@ -69,5 +72,25 @@ class ExamController extends AppBaseController
         }
         return view('admin_exams.index')
             ->with('exams', $exams);
+    }
+
+    public function activeDraftExams()
+    {
+        $today = date('y-m-d h:m',time());
+        //$today = '2022-06-06 11:05';
+        $draft_exams = DB::table('draft_exams')->where('start_time',$today)->where('status',false)->where('marked',false)->get()->count();
+        if ($draft_exams != 0) {
+            $draft_exams = DB::table('draft_exams')->where('start_time',$today)->where('status',false)->where('marked',false)->update(['status' => true]);
+        }
+    }
+
+    public function deactiveDraftExams()
+    {
+        $today = date('y-m-d h:m',time());
+        //$today = '2022-06-06 11:05';
+        $draft_exams = DB::table('draft_exams')->where('end_time',$today)->where('status',true)->where('marked',false)->get()->count();
+        if ($draft_exams != 0) {
+            $draft_exams = DB::table('draft_exams')->where('end_time',$today)->where('status',true)->where('marked',false)->update(['status' => false]);
+        }
     }
 }

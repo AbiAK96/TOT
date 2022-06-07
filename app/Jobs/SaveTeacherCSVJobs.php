@@ -10,6 +10,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+// use App\Jobs\SendWelcomeEmailJobs;
 
 class SaveTeacherCSVJobs implements ShouldQueue
 {
@@ -40,9 +42,12 @@ class SaveTeacherCSVJobs implements ShouldQueue
         $user->first_name = $this->teacher[0];
         $user->last_name = $this->teacher[1];
         $user->email = $this->teacher[2];
-        $user->password = $this->teacher[3];
+        $user->password = Hash::make($this->teacher[3]);
         $user->school_id = $this->school_id;
         $user->role_id = 3;
         $user->save();
+
+        // $welcomeEmail = (new SendWelcomeEmailJobs($this->teacher_id,$this->model));
+        // dispatch($welcomeEmail);
     }
 }

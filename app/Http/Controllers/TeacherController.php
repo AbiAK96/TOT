@@ -188,14 +188,21 @@ class TeacherController extends AppBaseController
         $exams = DB::table('draft_exams')
                     ->select('draft_exams.*')
                     ->where('teacher_id', $teacher_id)
+                    ->where('status', true)
+                    ->where('marked', false)
                     ->get();
         
             return view('teacher_exams.index')
             ->with('exams', $exams);
     }
 
-    public function getExamsQuestions(Request $request) 
+    public function getExamsQuestions(Request $request)
     {
+        $user = auth()->user();
+        $draft_exams = DB::table('draft_exams')->where('teacher_id', $user->id)->where('status',true)->first();
+        if ($draft_exams == null) {
+            return view('errors.access_denied');
+        }
         $questions = Question::where('status',true)->get();
             return view('teacher_exams.start')
             ->with('questions', $questions);
@@ -203,7 +210,6 @@ class TeacherController extends AppBaseController
 
     public function storeResults(Request $request)
     {
-        
         $teacher = auth()->user();
         $questions_count = Question::where('status',true)->count();
         if ($request->ids != null && count($request->ids) == $questions_count) {
@@ -255,11 +261,13 @@ class TeacherController extends AppBaseController
            $result->result = $marks;
            $result->date = time();
            $result->question_details = json_encode($question_details);
+           $draft_exams = DB::table('draft_exams')->where('teacher_id', $teacher->id)->where('status',true)->where('marked',false)->update(['status' => false,'marked' => true]);
            $result->save();
            Flash::success('Exam Done');
-           $questions = Question::where('status',true)->get();
-           return view('teacher_exams.start')
-           ->with('questions', $questions);
+        //    $questions = Question::where('status',true)->get();
+        //    return view('teacher_exams.start')
+        //    ->with('questions', $questions);
+           return redirect(route('teacher_exams.index'));
 
         }
         Flash::error('Please Select All the answers');
@@ -385,7 +393,7 @@ class TeacherController extends AppBaseController
                     return redirect(route('profile.password-show'));
                 }
             }
-            Flash::error('New password and current passwords are not match');
+            Flash::error('Current passwords are not match');
             return redirect(route('profile.password-show'));
 
         }

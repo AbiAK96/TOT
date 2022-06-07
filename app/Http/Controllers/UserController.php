@@ -89,7 +89,7 @@ class UserController extends AppBaseController
             $user = $this->userRepository->create($input);
             // $email_verification = new EmailVerificationController;
             // $email_verification->processData($request->email,$request->first_name,$request->password);
-            Flash::success('User saved successfully.');
+            Flash::success('Teacher saved successfully.');
     
             return redirect(route('users.index'));
         }
@@ -117,7 +117,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->create($input);
         // $email_verification = new EmailVerificationController;
         // $email_verification->processData($request->email,$request->first_name,$request->password);
-        Flash::success('User saved successfully.');
+        Flash::success('Teacher saved successfully.');
 
         return redirect(route('users.index'));
     }
@@ -134,7 +134,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('Teacher not found');
 
             return redirect(route('users.index'));
         }
@@ -153,7 +153,7 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->find($id);
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('Teacher not found');
 
             return redirect(route('users.index'));
         }
@@ -188,7 +188,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('Teacher not found');
 
             return redirect(route('users.index'));
         }
@@ -196,7 +196,7 @@ class UserController extends AppBaseController
         $input['password'] = Hash::make($request['password']);
         $user = $this->userRepository->update($input, $id);
 
-        Flash::success('User updated successfully.');
+        Flash::success('Teacher updated successfully.');
 
         return redirect(route('users.index'));
     }
@@ -215,14 +215,14 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('Teacher not found');
 
             return redirect(route('users.index'));
         }
 
         $this->userRepository->delete($id);
 
-        Flash::success('User deleted successfully.');
+        Flash::success('Teacher deleted successfully.');
 
         return redirect(route('users.index'));
     }
@@ -237,10 +237,15 @@ class UserController extends AppBaseController
         request()->file('file')->storeAs('reports', $fileName, 'public'); 
         
         $array = Excel::toArray(new UsersImport, request()->file('file'));
+        //print_r($array);die();
         $school_id = auth()->user()->school_id;
-        $teacher = School::teachersEmailValidation($array);
-        if($teacher != null){
-            Flash::error('Please enter an email address with your own domain.'.str_replace('"', '', json_encode($teacher)));
+        $respones = School::teachersEmailValidation($array);
+        //print_r($respones['teachers']);die();
+        if($respones['teachers'] != null){
+            Flash::error('Please enter an email address with your own domain.'.str_replace('"', '', json_encode($respones['teachers'])));
+            return redirect(route('users.index'));
+        } else if ($respones['emails'] != null) {
+            Flash::error('These emails are already taken.'.str_replace('"', '', json_encode($respones['emails'])));
             return redirect(route('users.index'));
         }
         $save = User::saveCSV($array,$school_id);

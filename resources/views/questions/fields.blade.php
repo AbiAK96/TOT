@@ -7,7 +7,7 @@
 <!-- Question Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('question', 'Question:') !!}
-    {!! Form::text('question', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::textarea('question', null, ['class' => 'form-control','maxlength' => 5000,'maxlength' => 5000]) !!}
 </div>
 
 <!-- Answer One Field -->
