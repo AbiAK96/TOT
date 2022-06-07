@@ -74,6 +74,11 @@ img {
     max-width: 100%;
 }
 
+.template_image {
+    width: 300px;
+    height: 300px;
+    }
+
 /* Layout */
 
 .wrapper {
@@ -98,8 +103,9 @@ img {
 /* Header */
 
 .header {
-    padding: 25px 0;
-    text-align: center;
+    padding: 25px 0 25px 50px;
+    text-align: left;
+    border: 0;
 }
 
 .header a {
@@ -130,19 +136,25 @@ img {
     padding: 0;
     width: 100%;
 }
-
+.email_logo {
+    display: block;
+    width: 160px;
+    height: auto;
+    text-align: left !important;
+    float: left !important;
+  }
 .inner-body {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 570px;
     background-color: #ffffff;
-    border-color: #e8e5ef;
+    border-color: #3f0bb8;
     border-radius: 2px;
     border-width: 1px;
     box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015);
     margin: 0 auto;
     padding: 0;
-    width: 570px;
+    width: 90%;
 }
 
 /* Subcopy */
@@ -162,17 +174,17 @@ img {
 .footer {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
-    -premailer-width: 570px;
-    margin: 0 auto;
-    padding: 0;
     text-align: center;
-    width: 570px;
 }
 
 .footer p {
     color: #b0adc5;
     font-size: 12px;
     text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 570px;
 }
 
 .footer a {
@@ -224,7 +236,7 @@ img {
 .button {
     -webkit-text-size-adjust: none;
     border-radius: 4px;
-    color: #fff;
+    color: rgb(255, 255, 255);
     display: inline-block;
     overflow: hidden;
     text-decoration: none;
@@ -232,11 +244,11 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #2d3748;
-    border-bottom: 8px solid #2d3748;
-    border-left: 18px solid #2d3748;
-    border-right: 18px solid #2d3748;
-    border-top: 8px solid #2d3748;
+    background-color: #1863e4;
+    border-bottom: 8px solid #1863e4;
+    border-left: 18px solid #1863e4;
+    border-right: 18px solid #1863e4;
+    border-top: 8px solid #1863e4;
 }
 
 .button-green,

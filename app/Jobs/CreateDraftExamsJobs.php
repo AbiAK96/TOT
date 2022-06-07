@@ -10,6 +10,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ExamCreation;
+use App\Jobs\SendExamEmailJobs;
 
 class CreateDraftExamsJobs implements ShouldQueue
 {
@@ -44,9 +47,13 @@ class CreateDraftExamsJobs implements ShouldQueue
     {
         DB::table('draft_exams')->insert([
             'teacher_id' => $this->teacher_id,
+            'exam_id' => $this->model->id,
             'start_time' => $this->model->start_time,
             'end_time' => $this->model->end_time,
             'name' => $this->model->name,
-        ]);    
+        ]);
+
+        $createDraftExam = (new SendExamEmailJobs($this->teacher_id,$this->model));
+        dispatch($createDraftExam);
     }
 }

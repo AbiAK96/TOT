@@ -30,10 +30,14 @@
                         <p>{{ $request->description }}</p>
                     </div>
                 </div>
-                {!! Form::open(['route' => ['admin_requests.approve', 'id='.$request->id], 'method' => 'post']) !!}
-                {!! Form::button(' Approve<i class="btn btn-primary"></i>', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
-                {!! Form::close() !!}
-                <a href="{{ route('admin_requests.index') }}" class="btn btn-default">Cancel</a>
+                <div class="card-footer clearfix">
+                <div class="float-right">
+                    {!! Form::open(['route' => ['admin_requests.approve', 'id='.$request->id], 'method' => 'post']) !!}
+                    {!! Form::button(' Approve<i class="btn btn-primary"></i>', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}<a href="{{ route('admin_requests.index') }}" class="btn btn-default">Cancel</a>
+                    {!! Form::close() !!}
+                </div>
+                </div>
+                 
             </div>
         </div>
     </div>

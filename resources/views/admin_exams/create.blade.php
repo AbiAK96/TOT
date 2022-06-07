@@ -30,10 +30,11 @@
                             {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 
                             {!! Form::label('start_time', 'Start Time:') !!}
-                            {!! Form::text('start_time', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+                            <input type="datetime-local" id="start_time" name="start_time" class="form-control">
+
 
                             {!! Form::label('end_time', 'End Time:') !!}
-                            {!! Form::text('end_time', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+                            <input type="datetime-local" id="end_time" name="end_time" class="form-control">
                         </div>
                         <br>
                         <table class="table" id="teacher_groups-table">

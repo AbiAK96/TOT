@@ -60,7 +60,7 @@ class SchoolController extends AppBaseController
 
         $school = $this->schoolRepository->create($input);
 
-        Flash::success('School saved successfully.');
+        Flash::success('School added successfully.');
 
         return redirect(route('schools.index'));
     }

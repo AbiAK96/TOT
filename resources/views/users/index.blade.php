@@ -7,7 +7,6 @@
                 <div class="col-sm-6">
                     <h1>Teachers</h1>
                 </div>
-                @include('flash::message')
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('users.create') }}">
@@ -41,11 +40,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
                 </div>
-                <div class="d-flex my-2">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Import XLSX
-                     </button>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -61,6 +56,13 @@
             </div>
         </div>
         <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Teacher Table</h3> @if(Auth::user()->role_id == 2)
+                <button type="button" class="btn btn-success float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Import XLSX
+                 </button>
+            @endif 
+            </div>
             <div class="card-body p-0">
                 @include('users.table')
 

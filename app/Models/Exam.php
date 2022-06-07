@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\CreateDraftExamsJobs;
+use App\Jobs\SendExamEmailJobs;
 
 class Exam extends Model
 {
@@ -27,6 +28,7 @@ class Exam extends Model
     public $fillable = [
         'name',
         'teacher_group_id',
+        'school_id',
         'start_time',
         'end_time'
     ];
@@ -39,6 +41,7 @@ class Exam extends Model
     protected $casts = [
         'name' => 'string',
         'teacher_group_id' => 'string',
+        'school_id' => 'integer',
         'start_time' => 'string',
         'end_time' => 'string'
     ];
@@ -50,6 +53,7 @@ class Exam extends Model
      */
     public static $rules = [
         'name' => 'required|string|max:255',
+        'school_id' => 'required|integer|max:255',
         'teacher_group_id' => 'required|string|max:255',
         'start_time' => 'required|string|max:255',
         'end_time' => 'string|max:255',
@@ -62,7 +66,7 @@ class Exam extends Model
     {
         parent::boot();
 
-        self::creating(function($model){
+        self::created(function($model){
             foreach(json_decode($model->teacher_group_id) as $id) {
                 $teachers_ids = DB::table('group_targets')
                 ->select('group_targets.teacher_id')

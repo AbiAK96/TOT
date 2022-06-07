@@ -18,17 +18,18 @@ class CreateUsersTable extends Migration
             $table->bigInteger('school_id')->unsigned();
             $table->string('email');
             $table->string('password');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('mobile_number');
-            $table->string('city');
-            $table->string('profile_image');
-            $table->integer('zip_code');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('mobile_number')->nullable();
+            $table->string('city')->nullable();
+            $table->string('profile_image')->nullable();
+            $table->integer('zip_code')->nullable();
             $table->boolean('tfa_enabled')->default(false);
             $table->integer('email_verified_at')->nullable(); 
             $table->integer('teacher_type_id')->unsigned()->nullable();
             $table->integer('mobile_verified_at')->nullable();
             $table->bigInteger('role_id')->unsigned();
+            $table->string('remember_token')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -13,9 +13,15 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+    protected $commands = [
+        '\App\Console\Commands\ActiveExams',
+        '\App\Console\Commands\DeactiveExams',
+    ];
+   
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('active:exam')->everyMinute();
+        $schedule->command('deactive:exam')->everyMinute();
     }
 
     /**

@@ -43,11 +43,12 @@ width: 100% !important;
 {{ $subcopy ?? '' }}
 </td>
 </tr>
-</table>
-</td>
-</tr>
-
 {{ $footer ?? '' }}
+</table>
+
+</td>
+
+</tr>
 </table>
 </td>
 </tr>

@@ -34,7 +34,8 @@ use Illuminate\Support\Facades\URL;
  * @property integer $role_id
  */
 class User extends Authenticatable
-{
+{    
+    use Notifiable;
     use SoftDeletes;
     use HasApiTokens;
     use HasFactory;
@@ -63,7 +64,8 @@ class User extends Authenticatable
         'mobile_verified_at',
         'role_id',
         'profile_image',
-        'teacher_type_id'
+        'teacher_type_id',
+        'remember_token'
     ];
 
     /**
@@ -85,6 +87,7 @@ class User extends Authenticatable
         'mobile_verified_at' => 'integer',
         'role_id' => 'integer',
         'profile_image' => 'string',
+        'remember_token' => 'string',
         'teacher_type_id' => 'integer'
     ];
 
@@ -106,6 +109,7 @@ class User extends Authenticatable
         'email_verified_at' => 'integer',
         'mobile_verified_at' => 'integer',
         'profile_image' => 'nullable|string|max:255',
+        'remember_token' => 'nullable|string|max:255',
         'role_id' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
@@ -191,16 +195,8 @@ class User extends Authenticatable
         $teachers = $array[0];
 
         foreach($teachers as $teacher) {
-            $existing_teacher = User::where('email',$teacher[2])->first();
-            if($existing_teacher == null){
-                $jobs = new SaveTeacherCSVJobs($teacher,$school_id);
-                dispatch($jobs);
-            }else{
-
-                // $jobs = new UpdateTeacherCSVJobs($teacher);
-                // dispatch($jobs);
-            }
-
+            $jobs = new SaveTeacherCSVJobs($teacher,$school_id);
+            dispatch($jobs);
         }
 
     }

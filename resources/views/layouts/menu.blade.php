@@ -7,6 +7,13 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('schools.index') }}"
+       class="nav-link {{ Request::is('schools*') ? 'active' : '' }}">
+       <i style="color: black" class="nav-icon fa fa-school"></i></i>
+        <p style="color: black">Schools</p>
+    </a>
+</li>
 
 <li class="nav-item">
     <a href="{{ route('users.index') }}"
@@ -30,15 +37,6 @@
        class="nav-link {{ Request::is('questions*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-question"></i></i>
         <p style="color: black">Questions</p>
-    </a>
-</li>
-
-
-<li class="nav-item">
-    <a href="{{ route('schools.index') }}"
-       class="nav-link {{ Request::is('schools*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-school"></i></i>
-        <p style="color: black">Schools</p>
     </a>
 </li>
 

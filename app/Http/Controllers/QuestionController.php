@@ -31,12 +31,13 @@ class QuestionController extends AppBaseController
      *
      * @return Response
      */
+    
     public function index(Request $request)
     {
         $questions = Question::where('question_type_id',1)->get();
         $question = Question::where('question_type_id',1)->first();
         if ($question == null) {
-            $type = 'No Questions';
+            $type = 'No';
         } else {
             $type = QuestionTypes::where('id',$question->question_type_id)->first()->name;
         }
