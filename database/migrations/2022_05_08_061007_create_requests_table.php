@@ -15,13 +15,17 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('school_id');
-            $table->integer('teacher_id');
+            $table->integer('school_id'); 
+            $table->bigInteger('teacher_id')->unsigned();
             $table->longText('description');
             $table->string('subject');
             $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('teacher_id')
+            ->references('id')
+            ->on('users');
 
         });
     }
