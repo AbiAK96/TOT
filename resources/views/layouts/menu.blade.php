@@ -183,7 +183,7 @@
 
 <li class="nav-item">
     <a href="{{ route('teacher_exams.index') }}"
-       class="nav-link {{ Request::is('teacher_exams*') ? 'active' : '' }}">
+       class="nav-link {{ Request::is('teacher/exams*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-pen"></i></i>
         <p style="color: black">Exams</p>
 
@@ -192,7 +192,7 @@
 
 <li class="nav-item">
     <a href="{{ route('teacher_requests.index') }}"
-       class="nav-link {{ Request::is('teacher_requests*') ? 'active' : '' }}">
+       class="nav-link {{ Request::is('teacher/request*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-envelope"></i></i>
         <p style="color: black">Request</p>
     </a>

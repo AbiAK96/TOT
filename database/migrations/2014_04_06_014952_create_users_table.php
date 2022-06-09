@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('zip_code')->nullable();
             $table->boolean('tfa_enabled')->default(false);
             $table->integer('email_verified_at')->nullable(); 
-            $table->integer('teacher_type_id')->unsigned()->nullable();
+            $table->bigInteger('teacher_type_id')->unsigned()->nullable();
             $table->integer('mobile_verified_at')->nullable();
             $table->bigInteger('role_id')->unsigned();
             $table->string('remember_token')->nullable();

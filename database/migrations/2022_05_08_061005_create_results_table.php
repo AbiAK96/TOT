@@ -15,7 +15,7 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('teacher_id')->unsigned();
+            $table->bigInteger('teacher_id')->unsigned();
             $table->bigInteger('school_id')->unsigned();
             $table->string('question_type');
             $table->string('result');
