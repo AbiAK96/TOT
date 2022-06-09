@@ -263,7 +263,7 @@ class TeacherController extends AppBaseController
            $result->question_details = json_encode($question_details);
            $draft_exams = DB::table('draft_exams')->where('teacher_id', $teacher->id)->where('status',true)->where('marked',false)->update(['status' => false,'marked' => true]);
            $result->save();
-           Flash::success('Exam Done');
+           Flash::success('Result has been saved.');
         //    $questions = Question::where('status',true)->get();
         //    return view('teacher_exams.start')
         //    ->with('questions', $questions);
@@ -353,7 +353,12 @@ class TeacherController extends AppBaseController
         $chart->labels = $values;
         $chart->colours = $colours;
         $teacher_results = DB::table('results')->where('teacher_id', $request->id)->get();
-        return view('results.index')->with('chart', $chart)->with('user', $user)->with('books', $books)->with('teacher_results', $teacher_results);
+        $today = date('Y-m-d H:i:s');
+        //dd($today);
+        $absence_exams = DB::table('draft_exams')->where('end_time','<=',$today)->where('status',false)->where('marked',false)->where('teacher_id',$user->id)->get();
+        //dd($absence_exams);
+        return view('results.index')->with('chart', $chart)->with('user', $user)->with('books', $books)->with('teacher_results', $teacher_results)
+        ->with('absence_exams', $absence_exams);
 
     }
 

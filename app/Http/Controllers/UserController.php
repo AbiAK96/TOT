@@ -85,10 +85,15 @@ class UserController extends AppBaseController
     {
         if (auth()->user()->role_id ==1) {
             $input = $request->all();
+            $email = User::getExistingEmail($request->email);
+            if($email == false){
+                Flash::error('Email is already taken');
+                return redirect(route('users.create'));
+            }
             $input['password'] = Hash::make($request['password']);
             $user = $this->userRepository->create($input);
-            // $email_verification = new EmailVerificationController;
-            // $email_verification->processData($request->email,$request->first_name,$request->password);
+            $email_verification = new EmailVerificationController;
+            $email_verification->processData($request->email,$request->first_name,$request->password);
             Flash::success('Teacher saved successfully.');
     
             return redirect(route('users.index'));
@@ -115,10 +120,9 @@ class UserController extends AppBaseController
         $input = $request->all();
         $input['password'] = Hash::make($request['password']);
         $user = $this->userRepository->create($input);
-        // $email_verification = new EmailVerificationController;
-        // $email_verification->processData($request->email,$request->first_name,$request->password);
+        $email_verification = new EmailVerificationController;
+        $email_verification->processData($request->email,$request->first_name,$request->password);
         Flash::success('Teacher saved successfully.');
-
         return redirect(route('users.index'));
     }
 
