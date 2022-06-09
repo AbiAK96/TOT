@@ -73,7 +73,7 @@ class HomeController extends Controller
         $results_count = DB::table('results')->where('teacher_id', $user->id)->get()->count();
         $avg = 0;
         $count['avg_mark'] = 0;
-        if  ($results != null) {
+        if  ($results_count != 0) {
             foreach ($results as $result) {
                 $avg = $avg + $result->result;
             }

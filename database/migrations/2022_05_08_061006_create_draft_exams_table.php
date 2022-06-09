@@ -21,6 +21,7 @@ class CreateDraftExamsTable extends Migration
             $table->string('end_time');
             $table->string('name');
             $table->boolean('status')->default(false); 
+            $table->boolean('marked')->default(false); 
             $table->timestamps();
             $table->softDeletes();
 
