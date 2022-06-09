@@ -79,9 +79,16 @@
 
                                 <div class="col-lg-12 mb-4 mb-sm-5">
                                     <div>
-                                        <span class="section-title text-primary mb-3 mb-sm-4">                <div class="col-sm-6">
+                                        <span class="section-title text-primary mb-3 mb-sm-4">                
+                                            <div class="col-sm-6">
                                             <h1><h1>Book Details</h1></h1>
+                                            @if(count($books) == 0)
+                                                <div class="alert alert-primary" role="alert"> 
+                                                    Book details not found
+                                                </div>
+                                            @endif
                                         </div></span>
+                                        
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="users-table">
                                                 <thead>
@@ -107,53 +114,33 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
+                                    <span class="section-title text-primary mb-3 mb-sm-4">                
+                                        <div class="col-sm-6">
+                                        <h1><h1>Exam absence details</h1></h1>
+                                        </div>
+                                    </span>
                                     <div class="row">
-                                        <div class="col-lg-12 mb-4 mb-sm-5">
-                                            <div class="mb-4 mb-sm-5">
-                                                <span class="section-title text-primary mb-3 mb-sm-4">Skill</span>
-                                                <div class="progress-text">
-                                                    <div class="row">
-                                                        <div class="col-6">Driving range</div>
-                                                        <div class="col-6 text-end">80%</div>
-                                                    </div>
-                                                </div>
-                                                <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
-                                                    <div class="animated custom-bar progress-bar slideInLeft bg-secondary" style="width:80%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
-                                                </div>
-                                                <div class="progress-text">
-                                                    <div class="row">
-                                                        <div class="col-6">Short Game</div>
-                                                        <div class="col-6 text-end">90%</div>
-                                                    </div>
-                                                </div>
-                                                <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
-                                                    <div class="animated custom-bar progress-bar slideInLeft bg-secondary" style="width:90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" role="progressbar"></div>
-                                                </div>
-                                                <div class="progress-text">
-                                                    <div class="row">
-                                                        <div class="col-6">Side Bets</div>
-                                                        <div class="col-6 text-end">50%</div>
-                                                    </div>
-                                                </div>
-                                                <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
-                                                    <div class="animated custom-bar progress-bar slideInLeft bg-secondary" style="width:50%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" role="progressbar"></div>
-                                                </div>
-                                                <div class="progress-text">
-                                                    <div class="row">
-                                                        <div class="col-6">Putting</div>
-                                                        <div class="col-6 text-end">60%</div>
-                                                    </div>
-                                                </div>
-                                                <div class="custom-progress progress progress-medium" style="height: 4px;">
-                                                    <div class="animated custom-bar progress-bar slideInLeft bg-secondary" style="width:60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" role="progressbar"></div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="section-title text-primary mb-3 mb-sm-4">Education</span>
-                                                <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-                                                <p class="mb-1-9">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-                                  
-                                            </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="users-table">
+                                                <thead>
+                                                <tr>
+                                                <th class="text-center" style="width: 5%">#</th>
+                                                <th class="text-center" style="width: 5%">Name</th>
+                                                <th class="text-center" style="width: 5%">Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $index = 1; ?>
+                                                @foreach($absence_exams as $absence_exam)
+                                                    <tr>
+                                                    <td class="text-center">{{ $index }}</td>
+                                                    <td class="text-center">{{ $absence_exam->name }}</td>
+                                                    <td class="text-center">{{ $absence_exam->start_time }}</td>
+                                                    </tr>
+                                                    <?php $index++ ?> 
+                                                @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

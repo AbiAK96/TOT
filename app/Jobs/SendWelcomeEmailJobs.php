@@ -11,9 +11,10 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Jobs\SendWelcomeEmailJobs;
+use App\Mail\EmailConfirmationCSV;
+use Illuminate\Support\Facades\Mail;
 
-class SaveTeacherCSVJobs implements ShouldQueue
+class SendWelcomeEmailJobs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
 
@@ -23,12 +24,10 @@ class SaveTeacherCSVJobs implements ShouldQueue
      * @var \Modules\ProductCategory\Entities\ProductCategory
      */
     public $teacher;
-    public $school_id;
 
-    public function __construct($teacher,$school_id)
+    public function __construct($teacher)
     {
         $this->teacher = $teacher;
-        $this->school_id = $school_id;
     }
 
     /**
@@ -38,16 +37,10 @@ class SaveTeacherCSVJobs implements ShouldQueue
      */
     public function handle()  
     {
-        $user = new User;
-        $user->first_name = $this->teacher[0];
-        $user->last_name = $this->teacher[1];
-        $user->email = $this->teacher[2];
-        $user->password = Hash::make($this->teacher[3]);
-        $user->school_id = $this->school_id;
-        $user->role_id = 3;
-        $user->save();
-
-        $welcomeEmail = (new SendWelcomeEmailJobs($this->teacher));
-        dispatch($welcomeEmail);
+        $email = $this->teacher[2];
+        $first_name = $this->teacher[0];
+        $password = $this->teacher[3];
+        $token = null;
+        Mail::to($email)->send(new EmailConfirmationCSV($token, $email, $first_name, $password));
     }
 }

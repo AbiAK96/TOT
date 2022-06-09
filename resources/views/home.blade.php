@@ -76,7 +76,7 @@
         </div>
         <div class="col-md-3 col-xl-3">
             <div class="info-box" style="background-color: rgb(255, 255, 255)">
-                <span class="info-box-icon bg-danger"><i class="nav-icon fa fa-pen"></i></span>
+                <span class="info-box-icon bg-danger"><i class="nav-icon fa fa-envelope-open"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Pending Requests</span>
                     <span class="info-box-number">{{$count['requests']}}</span>
@@ -95,7 +95,46 @@
             </div>
         </div>
         @elseif(Auth::user()->role_id == 3)
-        
+        <div class="col-md-3 col-xl-3">
+            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+                <span class="info-box-icon bg-info"><i class="nav-icon fa fa-pen"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Upcoming Exam</span>
+                    <span class="info-box-number">{{$count['upcoming_exam']}}</span>
+                    {{-- <span class="info-box-number">{{ $model->product_count }}</span> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+                <span class="info-box-icon bg-secondary"><i class="nav-icon fa fa-book-open"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Books</span>
+                    <span class="info-box-number">{{$count['books']}}</span>
+                    {{-- <span class="info-box-number">{{ $model->customer_count }}</span> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+                <span class="info-box-icon bg-danger"><i class="nav-icon fa fa-envelope-open"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Pending Requests</span>
+                    <span class="info-box-number">{{$count['requests']}}</span>
+                    {{-- <span class="info-box-number">{{ $model->customer_count }}</span> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xl-3">
+            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+                <span class="info-box-icon bg-success"><i class="nav-icon fa fa-chart-area"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Average Result</span>
+                    <span class="info-box-number">{{$count['avg_mark']}} %</span>
+                    {{-- <span class="info-box-number">{{ $model->customer_count }}</span> --}}
+                </div>
+            </div>
+        </div>
         @endif
     </div>
     <div class="row">
@@ -156,7 +195,33 @@
             </div>
             @elseif(Auth::user()->role_id == 3)
             <div class="card card-default">
-                1010 1010 1010 
+                <div class="col-sm-6">
+                    <h4>Exam Results</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="teacher_groups-table">
+                        <thead>
+                            <tr> 
+                                <th class="text-center">#</th>       
+                                <th>Question Type</th>
+                                <th>Date</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                    <?php $index = 1; ?>
+                                @foreach($count['results'] as $result)
+                                <tr>
+                                    <td class="text-center">{{ $index }}</td>
+                                    <td>{{ $result->question_type }}</td>
+                                    <td>{{ date('y-m-d',$result->date) }}</td>
+                                    <td>{{ $result->result }}</td>
+                                </tr>
+                                    
+                                    <?php $index++ ?> 
+                                    @endforeach
+                                </tbody>
+                            </table>
             </div>
             @endif
         </div>

@@ -76,8 +76,8 @@ class ExamController extends AppBaseController
 
     public function activeDraftExams()
     {
-        $today = date('y-m-d h:m',time());
-        //$today = '2022-06-06 11:05';
+        $today = date('y-m-d H:i',time());
+        //$today = '2022-06-07 20:54';
         $draft_exams = DB::table('draft_exams')->where('start_time',$today)->where('status',false)->where('marked',false)->get()->count();
         if ($draft_exams != 0) {
             $draft_exams = DB::table('draft_exams')->where('start_time',$today)->where('status',false)->where('marked',false)->update(['status' => true]);
@@ -86,8 +86,8 @@ class ExamController extends AppBaseController
 
     public function deactiveDraftExams()
     {
-        $today = date('y-m-d h:m',time());
-        //$today = '2022-06-06 11:05';
+        $today = date('y-m-d H:i',time());
+        //$today = '2022-06-07 20:54';
         $draft_exams = DB::table('draft_exams')->where('end_time',$today)->where('status',true)->where('marked',false)->get()->count();
         if ($draft_exams != 0) {
             $draft_exams = DB::table('draft_exams')->where('end_time',$today)->where('status',true)->where('marked',false)->update(['status' => false]);
