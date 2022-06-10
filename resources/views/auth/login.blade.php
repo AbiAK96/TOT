@@ -32,20 +32,97 @@
 
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
+    <div class="container">
+        <div class="row">
+          <div class="col-4" style="margin-top: 90px">
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <div class="login-logo">
+                        <a href="{{ url('/home') }}">
+                            <img src="{{ asset('img/logo.png') }}"  
+                            class="pb-2" alt="Logo" width="150px">    
+                        </a>
+                    </div>
+                    <p class="login-box-msg">Effective Way To Test The Teacher</p>
+                    <form method="post" action="{{ url('/login') }}">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="email"
+                                   name="email"
+                                   value="{{ old('email') }}"
+                                   placeholder="Email"
+                                   class="form-control @error('email') is-invalid @enderror">
+                            <div class="input-group-append">
+                                <div class="input-group-text"><span class="fas fa-envelope"></span></div>
+                            </div>
+                            @error('email')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+        
+                        <div class="input-group mb-3">
+                            <input type="password"
+                                   name="password"
+                                   id="password"
+                                   placeholder="Password"
+                                   class="form-control @error('password') is-invalid @enderror">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                            @error('password')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                            
+                        </div>
+                        <input type="checkbox" onclick="myFunction1()"> Show Password
+                        <br>
+                        <div class="row">
+                            
+                            <div class="col-4">
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            </div>
+        
+                        </div>
+                    </form>
+        
+                        <div class="job-filter-result">
+                            <div class="body">
+                                <div class="more" style="display: contents;">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <p class="mb-1">
+                            <a href="{{ route('password.request') }}">I forgot my password</a>
+                        </p>
+                    </div>
+                </div>
+          </div>
+          <div class="col-1">
+            &emsp;
+          </div>
+          <div class="col-7">
+            <img src="https://img.freepik.com/free-vector/teacher-standing-near-blackboard-holding-stick-isolated-flat-vector-illustration-cartoon-woman-character-near-chalkboard-pointing-alphabet_74855-8600.jpg?t=st=1654848115~exp=1654848715~hmac=cd65a619e9b27a14e6064c33380bef45c9ff90e8992d9d3c5ec9e64a0a054dfd&w=1060">
+          </div>
+        </div>
+      </div>
+{{-- <div class="login-box">
     <div class="login-logo">
 
         <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
     </div>
 
     <!-- /.login-logo -->
-
+    
     <!-- /.login-box-body -->
     <div class="card">
         <div class="card-body login-card-body">
             <div class="login-logo">
                 <a href="{{ url('/home') }}">
-                    <img src="{{ asset('img/edu.png') }}"  
+                    <img src="{{ asset('img/logo.png') }}"  
                     class="pb-2" alt="Logo" width="150px">    
                 </a>
             </div>
@@ -109,7 +186,7 @@
             </p>
         </div>
         <!-- /.login-card-body -->
-    </div>
+    </div> --}}
     <script>
         function myFunction1() {
           var x = document.getElementById("password");
@@ -120,7 +197,7 @@
           }
         }
         </script>
-</div>
+{{-- </div> --}}
 <!-- /.login-box -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"

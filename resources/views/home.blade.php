@@ -14,7 +14,7 @@
     <div class="row">
         @if(Auth::user()->role_id == 1)
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-success"><i class="nav-icon fa fa-school"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Schools</span>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-info"><i class="nav-icon fa fa-user"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Teachers</span>
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-danger"><i class="nav-icon fa fa-user-secret"></i></span> 
                 <div class="info-box-content">
                     <span class="info-box-text">Admins</span>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-secondary"><i class="nav-icon fa fa-book-open"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Books</span>
@@ -55,7 +55,7 @@
         </div>
         @elseif(Auth::user()->role_id == 2)
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-info"><i class="nav-icon fa fa-user"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Teachers</span>
@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-warning"><i class="nav-icon fa fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Teacher Groups</span>
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-danger"><i class="nav-icon fa fa-envelope-open"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Pending Requests</span>
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-secondary"><i class="nav-icon fa fa-book-open"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Books</span>
@@ -96,7 +96,7 @@
         </div>
         @elseif(Auth::user()->role_id == 3)
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-info"><i class="nav-icon fa fa-pen"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Upcoming Exam</span>
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-secondary"><i class="nav-icon fa fa-book-open"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Books</span>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-danger"><i class="nav-icon fa fa-envelope-open"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Pending Requests</span>
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="col-md-3 col-xl-3">
-            <div class="info-box" style="background-color: rgb(255, 255, 255)">
+            <div class="info-box" style="background-color: rgba(162,162,236,255)">
                 <span class="info-box-icon bg-success"><i class="nav-icon fa fa-chart-area"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Average Result</span>

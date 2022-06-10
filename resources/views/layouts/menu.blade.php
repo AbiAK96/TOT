@@ -2,7 +2,7 @@
 <li class="nav-item">
     <a href="{{ route('home') }}"
        class="nav-link {{ Request::is('home') ? 'active' : '' }}">
-        <i style="color: black" class="nav-icon fas fa-tachometer-alt"></i>
+        <i style="color: black" class="nav-icon fa fa-chart-line"></i>
         <p style="color: black">Dashboard</p>
     </a>
 </li>
@@ -10,7 +10,7 @@
 <li class="nav-item">
     <a href="{{ route('schools.index') }}"
        class="nav-link {{ Request::is('schools*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-school"></i></i>
+       <i style="color: black" class="nav-icon fa fa-school"></i> 
         <p style="color: black">Schools</p>
     </a>
 </li>
@@ -18,7 +18,7 @@
 <li class="nav-item">
     <a href="{{ route('users.index') }}"
        class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-user"></i></i>
+       <i style="color: black" class="nav-icon fa fa-user-check"></i>
         <p style="color: black">Teachers</p>
     </a><i class=""></i>
 </li>
@@ -26,7 +26,7 @@
 <li class="nav-item">
     <a href="{{ route('questionTypes.index') }}"
        class="nav-link {{ Request::is('questionTypes*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-tags"></i></i>
+       <i style="color: black" class="nav-icon fa fa-hashtag"></i>
         <p style="color: black">Question Types</p>
     </a>
 </li>
@@ -44,7 +44,7 @@
 <li class="nav-item">
     <a href="{{ route('teacherTypes.index') }}"
        class="nav-link {{ Request::is('teacherTypes*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-tags"></i></i>
+       <i style="color: black" class="nav-icon fa fa-hashtag"></i></i>
         <p style="color: black">Teacher Types</p>
     </a>
 </li>
@@ -84,7 +84,7 @@
 <li class="nav-item">
     <a href="{{ route('users.index') }}"
        class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-       <i style="color: black" class="nav-icon fa fa-user"></i></i>
+       <i style="color: black" class="nav-icon fa fa-user-check"></i></i>
         <p style="color: black">Teachers</p>
     </a><i class=""></i>
 </li>

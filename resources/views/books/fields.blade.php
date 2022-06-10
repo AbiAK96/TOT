@@ -7,7 +7,7 @@
 <!-- Description Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('description', 'Description:') !!}
-    {!! Form::text('description', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::textArea('description', null, ['class' => 'form-control','maxlength' => 2505,'maxlength' => 2500]) !!}
 </div>
 
 <!-- File Field -->
