@@ -18,6 +18,8 @@ class CreateBooksTable extends Migration
             $table->id('id');
             $table->string('name');
             $table->string('file');
+            $table->string('description');
+            $table->string('src');
             $table->timestamps();
             $table->softDeletes();
         });

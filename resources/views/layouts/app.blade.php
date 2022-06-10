@@ -42,7 +42,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <!-- Main Header -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: rgb(255, 255, 255)">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: rgba(162,162,236,255)">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -105,7 +105,7 @@
         <div class="float-right d-none d-sm-block">
         </div>
         <strong>
-            Copyright &copy; <?= date('Y') ?> <a href="https://tot.cloud">Test The Teacher</a>.
+            Copyright &copy; <?= date('Y') ?> <a href="https://tot.cloud">Test Our Teacher</a>.
         </strong>
         All rights reserved.
     </footer>
