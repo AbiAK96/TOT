@@ -1,9 +1,9 @@
 @component('mail::message')
-# TTT registration
+# TOT registration
 
 Dear Sir/Madam,<br>
 
-You have Registerd to TTT account. Please use following credentials to TTT system.
+You have Registerd to TOT account. Please use following credentials to TOT system.
 <br>
 Email : {{ $email }} <br>
 Password : {{ $password }}<br>

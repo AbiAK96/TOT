@@ -2,7 +2,7 @@
 {{-- Header --}}
 @slot('header')
 @component('mail::header', ['url' => config('app.url')])
-<img style="text-align: left" src="{{ asset('img/karts-logo.png') }}" class="email_logo" alt="logo">
+<img style="text-align: left" src="{{ asset('img/email.png') }}" class="email_logo" alt="logo">
 @endcomponent
 @endslot
 
@@ -21,7 +21,7 @@
 {{-- Footer --}}
 @slot('footer')
 @component('mail::footer')
-© {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
+© Test Our Teacher {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
 @endcomponent
 @endslot
 @endcomponent
