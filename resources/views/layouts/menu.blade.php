@@ -19,7 +19,7 @@
     <a href="{{ route('users.index') }}"
        class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-user-check"></i>
-        <p style="color: black">Teachers</p>
+        <p style="color: black">Users</p>
     </a><i class=""></i>
 </li>
 
