@@ -5,7 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
+                    @if(Auth::user()->role_id == 1)
+                    <h1>Users</h1>
+                    @elseif(Auth::user()->role_id == 2)
                     <h1>Teachers</h1>
+                    @endif
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
@@ -56,8 +60,13 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Teacher Table</h3> @if(Auth::user()->role_id == 2)
+            <div class="card-header">                    
+                @if(Auth::user()->role_id == 1)
+                <h3 class="card-title">User Table</h3>
+                @elseif(Auth::user()->role_id == 2)
+                <h3 class="card-title">Teacher Table</h3>
+                @endif
+                @if(Auth::user()->role_id == 2)
                 <button type="button" class="btn btn-success float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Import XLSX
                  </button>

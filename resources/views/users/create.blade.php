@@ -5,7 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
+                    @if(Auth::user()->role_id == 1)
+                    <h1>Create User</h1>
+                    @elseif(Auth::user()->role_id == 2)
                     <h1>Create Teacher</h1>
+                    @endif
                 </div>
             </div>
         </div>
