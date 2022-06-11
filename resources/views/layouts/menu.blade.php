@@ -89,22 +89,22 @@
     </a><i class=""></i>
 </li>
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route('questionTypes.index') }}"
        class="nav-link {{ Request::is('questionTypes*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-tags"></i></i>
         <p style="color: black">Question Types</p>
     </a>
-</li>
+</li> --}}
 
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route('questions.index') }}"
        class="nav-link {{ Request::is('questions*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-question"></i></i>
         <p style="color: black">Questions</p>
     </a>
-</li>
+</li> --}}
 
 <li class="nav-item">
     <a href="{{ route('teacherTypes.index') }}"
@@ -115,13 +115,13 @@
 </li>
 
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route('selected_Questions.index') }}"
        class="nav-link {{ Request::is('selected-questions*') ? 'active' : '' }}">
        <i style="color: black" class="nav-icon fa fa-check"></i></i>
         <p style="color: black">Selected Questions</p>
     </a>
-</li>
+</li> --}}
 
 
 <li class="nav-item">

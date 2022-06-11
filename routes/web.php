@@ -33,6 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::middleware(['super_admin'])->group(function(){
         Route::resource('schools', App\Http\Controllers\SchoolController::class);
+        Route::resource('questionTypes', App\Http\Controllers\QuestionTypesController::class);
+        Route::resource('questions', App\Http\Controllers\QuestionController::class);
+        Route::get('selected-questions', [QuestionController::class,'selectedQuestions'])->name('selected_Questions.index');
     });
     Route::middleware(['admin'])->group(function(){
         Route::get('admin/exams', [ExamController::class,'getExams'])->name('admin_exams.index'); 
@@ -60,8 +63,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
     });
     Route::middleware(['admin_super_admin'])->group(function(){
         Route::resource('users', App\Http\Controllers\UserController::class);
-        Route::resource('questionTypes', App\Http\Controllers\QuestionTypesController::class);
-        Route::resource('questions', App\Http\Controllers\QuestionController::class);
         Route::resource('books', BookController::class); 
     });
 
@@ -77,7 +78,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('send/forgot-password', [ForgotPasswordAPIController::class,'forgotPassword']);
     Route::get('auth/email-verification', [EmailVerificationController::class,'emailVerifyProcess']);
     Route::delete('selectQuestions', [QuestionController::class,'selectQuestions']);
-    Route::get('selected-questions', [QuestionController::class,'selectedQuestions'])->name('selected_Questions.index');
     Route::get('selected-questions/remove/{id}', [QuestionController::class,'remove'])->name('selected_Questions.remove');
 
    // Route::post('selectedquestionsdeleteAll', [QuestionController::class,'deleteSelectedQuestions']);
