@@ -31,7 +31,7 @@ class EmailConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->markdown('Email.emailVerify')->subject('Account Registerd in TTT')->with([
+        return $this->markdown('Email.emailVerify')->subject('Account Registerd in TOT')->with([
             'token' => $this->token,
             'email' => $this->email,
             'first_name' => $this->first_name,

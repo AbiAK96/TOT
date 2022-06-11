@@ -75,14 +75,11 @@ class School extends Model
     public function teachersEmailValidation($array)  
     {
         $teachers_details = $array[0];
-        //print_r($teachers_details);die();
         $teachers = [];
         $emails = [];
         foreach($teachers_details as $teacher_detail){
-            
             $school_domain = School::where('id',auth()->user()->school_id)->first()->school_domain;
             $email = explode('@',$teacher_detail[2])[1];
-            //print_r($school_domain);die();
             if($email != $school_domain){
                 array_push($teachers,$teacher_detail[2]);
             }
