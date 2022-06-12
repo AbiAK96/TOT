@@ -31,7 +31,7 @@
                         <table class="table" id="users-table">
                             <thead>
                             <tr>
-                                <th>School Id</th>
+                            <th>School Id</th>
                             <th>Email</th>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -54,20 +54,28 @@
                                 <td>{{ $user->city }}</td>
                                 <td>{{ $user->zip_code }}</td>
                                 <td>{{ $user->tfa_enabled }}</td>
-                                <td>{{ $user->role_id }}</td>
+                                <td>{{ $user->role_id }}</td> 
                                     <td width="120">
                                         {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                                         <div class='btn-group'>
                                             <a href="{{ route('users.show', [$user->id]) }}"
-                                               class='btn btn-default btn-xs'>
+                                               class='btn btn-default btn-sm'>
                                                 <i class="far fa-eye"></i>
                                             </a>
                                             <a href="{{ route('users.edit', [$user->id]) }}"
-                                               class='btn btn-default btn-xs'>
+                                               class='btn btn-default btn-sm'>
                                                 <i class="far fa-edit"></i>
                                             </a>
-                                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
                                         </div>
+                                        @if($user->role_id == 3)
+                                            <td> 
+                                                <a href="{{ route('results.index', [$user->id]) }}"
+                                                    class='btn btn-dark btn-sm'>
+                                                    <i class="nav-icon fa fa-chart-area"></i>
+                                                </a>
+                                            </td>
+                                            @endif
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

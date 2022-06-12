@@ -17,6 +17,7 @@ class ExamController extends AppBaseController
 {
     public function getExams(Request $request)
     {
+        //get exam details
         $exams = Exam::where('school_id',auth()->user()->school_id)->get();
         
         foreach($exams as $exam){

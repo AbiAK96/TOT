@@ -32,6 +32,7 @@ class RequestController extends AppBaseController
 
     public function make(Request $request)
     {
+        //make request
         $teacher_id = auth()->user()->id;
         if ($request->subject != null && $request->description != null) {
             DB::table('requests')->insert([
@@ -76,7 +77,7 @@ class RequestController extends AppBaseController
             return view('admin_requests.index')
             ->with('requests', $requests);
     }
-
+    // aprove request
     public function approve(Request $request)
     {
         $school_id = auth()->user()->school_id;
